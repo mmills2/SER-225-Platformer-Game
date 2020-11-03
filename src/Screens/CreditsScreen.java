@@ -6,6 +6,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Level.Secret;
 import Maps.TitleScreenMap;
 import Players.Cat;
 import SpriteFont.SpriteFont;
@@ -22,6 +23,7 @@ public class CreditsScreen extends Screen implements PlayerListener {
     protected SpriteFont contributorsLabel;
     protected SpriteFont returnInstructionsLabel;
     protected Player player;
+    protected Secret creditSecret;
 
     public CreditsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -37,6 +39,7 @@ public class CreditsScreen extends Screen implements PlayerListener {
         contributorsLabel = new SpriteFont("Thank you to QU Alumni Brian Carducci, Joseph White,\nand Alex Hutman for their contributions.", 60, 220, "Times New Roman",20, Color.white);
         returnInstructionsLabel = new SpriteFont("Press Esc to return to the menu", 20, 560, "Times New Roman", 30, Color.white);
         keyLocker.lockKey(Key.SPACE);
+        creditSecret = new Secret("Over the Tree");
 
         // setup player
         this.player = new Cat(background.getPlayerStartPosition().x, background.getPlayerStartPosition().y);
@@ -66,6 +69,7 @@ public class CreditsScreen extends Screen implements PlayerListener {
         contributorsLabel.drawWithParsedNewLines(graphicsHandler);
         returnInstructionsLabel.draw(graphicsHandler);
         player.draw(graphicsHandler);
+        creditSecret.draw(graphicsHandler);
     }
 
     @Override
