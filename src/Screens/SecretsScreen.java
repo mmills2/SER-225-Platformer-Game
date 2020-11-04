@@ -21,6 +21,8 @@ public class SecretsScreen extends Screen{
     protected Player player;
     protected String creditScreenSecret;
     protected SpriteFont returnInstructionsLabel;
+    protected SpriteFont overTheTree;
+
 
     public SecretsScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -28,6 +30,9 @@ public class SecretsScreen extends Screen{
 
     @Override
     public void initialize() {
+        overTheTree = new SpriteFont("Over The Tree", 153, 135, "Comic Sans", 15, new Color(49, 207, 240));
+        overTheTree.setOutlineColor(Color.black);
+        overTheTree.setOutlineThickness(2);
         creditScreenSecret = "LockedSecret.png";
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
@@ -54,6 +59,7 @@ public class SecretsScreen extends Screen{
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
         returnInstructionsLabel.draw(graphicsHandler);
+        if(Screen.creditSecretStatus){overTheTree.draw(graphicsHandler);}
         graphicsHandler.drawFilledRectangleWithBorder(150, 150, 100, 100, Color.BLACK, Color.DARK_GRAY, 5);
         graphicsHandler.drawImage(ImageLoader.load(creditScreenSecret), 153, 153, 95, 95);
     }
