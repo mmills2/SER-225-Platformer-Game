@@ -14,6 +14,7 @@ import Level.Player;
 import Level.Secret;
 import SpriteFont.SpriteFont;
 import Utils.Point;
+import Utils.Stopwatch;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -29,6 +30,9 @@ public class Walrus extends NPC {
     protected double dist;
     protected Secret associatedSecret;
     protected boolean foundSecret;
+    protected boolean secretTimerStarted;
+    protected boolean secretTimerEnded;
+    protected Stopwatch secretTimer = new Stopwatch();
 
 
     public Walrus(Point location, Map map, String speech) {
@@ -37,6 +41,8 @@ public class Walrus extends NPC {
         isSpeechSet = false;
         associatedSecret = null;
         foundSecret = false;
+        secretTimerStarted = false;
+        secretTimerEnded = false;
     }
     public Walrus(Point location, Map map, String speech, Secret associatedSecret) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN", 5000);
@@ -44,6 +50,8 @@ public class Walrus extends NPC {
         isSpeechSet = false;
         this.associatedSecret = associatedSecret;
         foundSecret = false;
+        secretTimerStarted = false;
+        secretTimerEnded = false;
     }
 
     @Override
@@ -101,8 +109,15 @@ public class Walrus extends NPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        if(foundSecret){
+        if(foundSecret && !secretTimerEnded){
+            if(!secretTimerStarted) {
+                secretTimer.setWaitTime(5000);
+                secretTimerStarted = true;
+            }
             associatedSecret.draw(graphicsHandler);
+            if(secretTimer.isTimeUp()){
+                secretTimerEnded = true;
+            }
         }
     }
 
