@@ -21,6 +21,10 @@ public class Level2 extends Map {
         super("level2.txt", new CommonTileset(), new Point(1, 17));
     }
 
+    public Level2(Secret secret) {
+        super("level2.txt", new CommonTileset(), new Point(1, 17), secret);
+    }
+
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
@@ -142,7 +146,7 @@ public class Level2 extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        npcs.add(new Walrus(getPositionByTileIndex(79, 19).subtract(new Point(0, 13)), this, "Welcome to the hidden grove"));
+        npcs.add(new Walrus(getPositionByTileIndex(79, 19).subtract(new Point(0, 13)), this, "Welcome to the hidden grove", secret));
 
         return npcs;
     }

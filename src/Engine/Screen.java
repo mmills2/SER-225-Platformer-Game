@@ -9,4 +9,5 @@ public abstract class Screen {
     public abstract void draw(GraphicsHandler graphicsHandler);
     public static boolean anySecretFound = false;
     public static boolean creditSecretStatus = false;
+    public static boolean level2SecretStatus = false;
 }

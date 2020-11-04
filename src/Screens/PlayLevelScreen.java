@@ -2,12 +2,14 @@ package Screens;
 
 import Engine.GamePanel;
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Level.Secret;
 import Maps.Level2;
 import Maps.TestMap;
 import Players.Cat;
@@ -24,6 +26,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
     protected int curMap;
     public static boolean running = false;
+    protected Secret level2Secret;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -31,13 +34,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void initialize() {
+        level2Secret = new Secret("Hidden Grove", ImageLoader.load("Level2Secret.png"));
         // define/setup map
         switch(curMap) {
             case (0):
                 this.map = new TestMap();
                 break;
             case (1):
-                this.map = new Level2();
+                this.map = new Level2(level2Secret);
                 break;
             default:
                 goBackToMenu();
