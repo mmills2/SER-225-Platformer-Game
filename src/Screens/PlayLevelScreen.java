@@ -36,7 +36,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // define/setup map
         switch(curMap) {
             case (0):
-                this.map = new Level3();
+                this.map = new TestMap();
                 break;
             case (1):
                 this.map = new Level2();
