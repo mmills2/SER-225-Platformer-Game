@@ -9,6 +9,7 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.Level2;
+import Maps.Level3;
 import Maps.TestMap;
 import Players.Cat;
 import Utils.Stopwatch;
@@ -38,6 +39,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
             case (1):
                 this.map = new Level2();
+                break;
+            case(2):
+                this.map= new Level3();
                 break;
             default:
                 goBackToMenu();
