@@ -57,10 +57,11 @@ public class CreditsScreen extends Screen implements PlayerListener {
             keyLocker.unlockKey(Key.ESC);
         }
 
-        // if space is pressed, go back to main menu
+        // if esc is pressed, go back to main menu
         if (!keyLocker.isKeyLocked(Key.ESC) && Keyboard.isKeyDown(Key.ESC)) {
             screenCoordinator.setGameState(GameState.MENU);
         }
+
     }
 
     public void draw(GraphicsHandler graphicsHandler) {

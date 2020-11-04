@@ -7,4 +7,6 @@ public abstract class Screen {
     public abstract void initialize();
     public abstract void update();
     public abstract void draw(GraphicsHandler graphicsHandler);
+    public static boolean anySecretFound = false;
+    public static boolean creditSecretStatus = false;
 }

@@ -3,6 +3,7 @@ package Screens;
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import GameObject.Sprite;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
@@ -21,6 +22,7 @@ public class MenuScreen extends Screen {
     protected SpriteFont playGame;
     protected SpriteFont credits;
     protected SpriteFont Tutorial;
+    protected SpriteFont Secrets;
     protected Map background;
     protected Player player;
     protected Stopwatch keyTimer = new Stopwatch();
@@ -42,6 +44,9 @@ public class MenuScreen extends Screen {
         credits = new SpriteFont("CREDITS", 200, 250, "Comic Sans", 30, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
+        Secrets = new SpriteFont("SECRETS", 576, 150, "Comic Sans", 30, new Color(49, 207, 240));
+        Secrets.setOutlineColor(Color.black);
+        Secrets.setOutlineThickness(3);
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
         keyTimer.setWaitTime(200);
@@ -55,19 +60,32 @@ public class MenuScreen extends Screen {
         background.update(player);
 
         // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
-        if (Keyboard.isKeyDown(Key.DOWN) && keyTimer.isTimeUp()) {
+        if (Keyboard.isKeyDown(Key.DOWN) && keyTimer.isTimeUp() && currentMenuItemHovered != 3) {
             keyTimer.reset();
-            currentMenuItemHovered++;
-        } else if (Keyboard.isKeyDown(Key.UP) && keyTimer.isTimeUp()) {
+            if(currentMenuItemHovered == 2){
+                currentMenuItemHovered = 0;
+            }
+            else {
+                currentMenuItemHovered++;
+            }
+        } else if (Keyboard.isKeyDown(Key.UP) && keyTimer.isTimeUp() && currentMenuItemHovered != 3) {
             keyTimer.reset();
-            currentMenuItemHovered--;
+            if(currentMenuItemHovered == 0){
+                currentMenuItemHovered = 2;
+            }
+            else {
+                currentMenuItemHovered--;
+            }
         }
-
-        // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
-        if (currentMenuItemHovered > 2) {
-            currentMenuItemHovered = 0;
-        } else if (currentMenuItemHovered < 0) {
-            currentMenuItemHovered = 2;
+        else if(Keyboard.isKeyDown(Key.RIGHT) && keyTimer.isTimeUp() && (currentMenuItemHovered == 0 || currentMenuItemHovered == 3) && Screen.anySecretFound){
+            keyTimer.reset();
+            if(currentMenuItemHovered == 0){ currentMenuItemHovered = 3;}
+            else{currentMenuItemHovered = 0;}
+        }
+        else if(Keyboard.isKeyDown(Key.LEFT) && keyTimer.isTimeUp() && (currentMenuItemHovered == 0 || currentMenuItemHovered == 3) && Screen.anySecretFound){
+            keyTimer.reset();
+            if(currentMenuItemHovered == 3){ currentMenuItemHovered = 0;}
+            else{currentMenuItemHovered = 3;}
         }
 
         // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
@@ -75,20 +93,31 @@ public class MenuScreen extends Screen {
             playGame.setColor(new Color(255, 215, 0));
             credits.setColor(new Color(49, 207, 240));
             Tutorial.setColor(new Color(49, 207, 240));
+            Secrets.setColor(new Color(49, 207, 240));
             pointerLocationX = 170;
             pointerLocationY = 130;
         } else if (currentMenuItemHovered == 1) {
             playGame.setColor(new Color(49, 207, 240));
             credits.setColor(new Color(255, 215, 0));
             Tutorial.setColor(new Color(49, 207, 240));
+            Secrets.setColor(new Color(49, 207, 240));
             pointerLocationX = 170;
             pointerLocationY = 230;
         } else if (currentMenuItemHovered == 2) {
             playGame.setColor(new Color(49, 207, 240));
             Tutorial.setColor(new Color(255, 215, 0));
             credits.setColor(new Color(49, 207, 240));
+            Secrets.setColor(new Color(49, 207, 240));
             pointerLocationX = 170;
             pointerLocationY = 330;
+        }
+        else if (currentMenuItemHovered == 3){
+            playGame.setColor(new Color(49, 207, 240));
+            Tutorial.setColor(new Color(49, 207, 240));
+            credits.setColor(new Color(49, 207, 240));
+            Secrets.setColor(new Color(255, 215, 0));
+            pointerLocationX = 546;
+            pointerLocationY = 130;
         }
 
         // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
@@ -105,6 +134,8 @@ public class MenuScreen extends Screen {
                 screenCoordinator.setGameState(GameState.TUTORIAL);
             }
         }
+
+
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -112,6 +143,7 @@ public class MenuScreen extends Screen {
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
         Tutorial.draw(graphicsHandler);
+        if(Screen.anySecretFound){ Secrets.draw(graphicsHandler);}
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
 

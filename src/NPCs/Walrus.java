@@ -1,10 +1,7 @@
 package NPCs;
 
 import Builders.FrameBuilder;
-import Engine.GraphicsHandler;
-import Engine.ImageLoader;
-import Engine.Key;
-import Engine.Keyboard;
+import Engine.*;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -141,12 +138,15 @@ public class Walrus extends NPC {
         if (intersects(player) && Keyboard.isKeyDown(Key.SPACE)) {
             talkedTo = true;
             timer.setWaitTime(talkedToTime);
-            if(associatedSecret != null){
+            if(associatedSecret != null && !Screen.creditSecretStatus){
                 foundSecret = true;
+                Screen.anySecretFound = true;
+                Screen.creditSecretStatus = true;
             }
         };
         if (talkedTo && timer.isTimeUp()) {
             talkedTo = false;
         }
     }
+
 }

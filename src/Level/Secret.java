@@ -11,6 +11,7 @@ public class Secret {
     protected SpriteFont title;
     protected BufferedImage image;
     protected int id;
+    protected boolean isFound;
 
     public Secret (String title, BufferedImage image, int id){
         this.title = new SpriteFont(title, 690, 535, "Arial", 12, Color.WHITE);
@@ -26,5 +27,9 @@ public class Secret {
 
     public void printSecret(){
         System.out.println(title.getText());
+    }
+
+    public void setIsFound(boolean isFound){
+        this.isFound = isFound;
     }
 }
