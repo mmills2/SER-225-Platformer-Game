@@ -32,7 +32,7 @@ public class CreditsScreen extends Screen implements PlayerListener {
     @Override
     public void initialize() {
         // setup graphics on screen (background map, spritefont text)
-        creditSecret = new Secret("Over the Tree", ImageLoader.load("creditScreenAchievment.png"), 1);
+        creditSecret = new Secret("Over the Tree", ImageLoader.load("CreditScreenSecret.png"));
         background = new TitleScreenMap(creditSecret);
         background.setAdjustCamera(false);
         creditsLabel = new SpriteFont("Credits", 15, 35, "Times New Roman", 30, Color.white);
