@@ -133,6 +133,9 @@ public class MenuScreen extends Screen {
             } else if (menuItemSelected == 2) {
                 screenCoordinator.setGameState(GameState.TUTORIAL);
             }
+            else if(menuItemSelected == 3){
+                screenCoordinator.setGameState(GameState.SECRETS);
+            }
         }
 
 

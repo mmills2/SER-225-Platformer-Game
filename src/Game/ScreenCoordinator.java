@@ -3,10 +3,7 @@ package Game;
 import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
-import Screens.CreditsScreen;
-import Screens.MenuScreen;
-import Screens.PlayLevelScreen;
-import Screens.TutorialScreen;
+import Screens.*;
 
 /*
  * Based on the current game state, this class determines which Screen should be shown
@@ -53,6 +50,9 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case TUTORIAL:
 						currentScreen = new TutorialScreen(this);
+						break;
+					case SECRETS:
+						currentScreen = new SecretsScreen(this);
 				}
 				currentScreen.initialize();
 			}
