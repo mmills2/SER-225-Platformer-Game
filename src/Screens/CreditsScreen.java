@@ -32,20 +32,21 @@ public class CreditsScreen extends Screen implements PlayerListener {
     @Override
     public void initialize() {
         // setup graphics on screen (background map, spritefont text)
-        background = new TitleScreenMap();
+        creditSecret = new Secret("Over the Tree", ImageLoader.load("creditScreenAchievment.png"), 1);
+        background = new TitleScreenMap(creditSecret);
         background.setAdjustCamera(false);
         creditsLabel = new SpriteFont("Credits", 15, 35, "Times New Roman", 30, Color.white);
         createdByLabel = new SpriteFont("Created by Alex Thimineur for Quinnipiac's SER225 Course.", 130, 140, "Times New Roman", 20, Color.white);
         contributorsLabel = new SpriteFont("Thank you to QU Alumni Brian Carducci, Joseph White,\nand Alex Hutman for their contributions.", 60, 220, "Times New Roman",20, Color.white);
         returnInstructionsLabel = new SpriteFont("Press Esc to return to the menu", 20, 560, "Times New Roman", 30, Color.white);
         keyLocker.lockKey(Key.SPACE);
-        creditSecret = new Secret("Over the Tree");
 
         // setup player
         this.player = new Cat(background.getPlayerStartPosition().x, background.getPlayerStartPosition().y);
         this.player.setMap(background);
         this.player.addListener(this);
         this.player.setLocation(background.getPlayerStartPosition().x, background.getPlayerStartPosition().y);
+
     }
 
     public void update() {
@@ -69,7 +70,6 @@ public class CreditsScreen extends Screen implements PlayerListener {
         contributorsLabel.drawWithParsedNewLines(graphicsHandler);
         returnInstructionsLabel.draw(graphicsHandler);
         player.draw(graphicsHandler);
-        creditSecret.draw(graphicsHandler);
     }
 
     @Override

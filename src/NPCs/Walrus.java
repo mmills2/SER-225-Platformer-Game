@@ -3,12 +3,15 @@ package NPCs;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Key;
+import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Map;
 import Level.NPC;
 import Level.Player;
+import Level.Secret;
 import SpriteFont.SpriteFont;
 import Utils.Point;
 
@@ -24,12 +27,23 @@ public class Walrus extends NPC {
     protected double xDistFromPlayer;
     protected double yDistFromPlayer;
     protected double dist;
+    protected Secret associatedSecret;
+    protected boolean foundSecret;
 
 
     public Walrus(Point location, Map map, String speech) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN", 5000);
         this.speech = speech;
         isSpeechSet = false;
+        associatedSecret = null;
+        foundSecret = false;
+    }
+    public Walrus(Point location, Map map, String speech, Secret associatedSecret) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN", 5000);
+        this.speech = speech;
+        isSpeechSet = false;
+        this.associatedSecret = associatedSecret;
+        foundSecret = false;
     }
 
     @Override
@@ -87,6 +101,9 @@ public class Walrus extends NPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+        if(foundSecret){
+            associatedSecret.draw(graphicsHandler);
+        }
     }
 
     @Override
@@ -102,5 +119,19 @@ public class Walrus extends NPC {
     public void changeWalrusCostume(String costumeName){
         currentAnimationName = costumeName;
         this.updateCurrentFrame();
+    }
+
+    @Override
+    public void checkTalkedTo(Player player){
+        if (intersects(player) && Keyboard.isKeyDown(Key.SPACE)) {
+            talkedTo = true;
+            timer.setWaitTime(talkedToTime);
+            if(associatedSecret != null){
+                foundSecret = true;
+            }
+        };
+        if (talkedTo && timer.isTimeUp()) {
+            talkedTo = false;
+        }
     }
 }

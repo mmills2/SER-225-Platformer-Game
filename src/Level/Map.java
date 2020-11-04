@@ -59,9 +59,26 @@ public abstract class Map {
     // if set to false, camera will not move as player moves
     protected boolean adjustCamera = true;
 
+    // if the map has a secret it is stored here to be passed to an npc
+    protected Secret secret;
+
     public Map(String mapFileName, Tileset tileset, Point playerStartTile) {
         this.mapFileName = mapFileName;
         this.tileset = tileset;
+        setupMap();
+        this.startBoundX = 0;
+        this.startBoundY = 0;
+        this.endBoundX = width * tileset.getScaledSpriteWidth();
+        this.endBoundY = height * tileset.getScaledSpriteHeight();
+        this.xMidPoint = ScreenManager.getScreenWidth() / 2;
+        this.yMidPoint = (ScreenManager.getScreenHeight() / 2);
+        this.playerStartTile = playerStartTile;
+    }
+
+    public Map(String mapFileName, Tileset tileset, Point playerStartTile, Secret secret) {
+        this.mapFileName = mapFileName;
+        this.tileset = tileset;
+        this.secret = secret;
         setupMap();
         this.startBoundX = 0;
         this.startBoundY = 0;
@@ -376,5 +393,9 @@ public abstract class Map {
 
     public void draw(GraphicsHandler graphicsHandler) {
         camera.draw(graphicsHandler);
+    }
+
+    public void printSeceret(){
+        secret.printSecret();
     }
 }

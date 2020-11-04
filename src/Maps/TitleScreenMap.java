@@ -15,6 +15,7 @@ import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import Utils.Point;
+import Level.Secret;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,10 @@ public class TitleScreenMap extends Map {
 
     public TitleScreenMap() {
         super("title_screen_map.txt", new CommonTileset(), new Point(1, 9));
+    }
+
+    public TitleScreenMap(Secret secret) {
+        super("title_screen_map.txt", new CommonTileset(), new Point(1, 9), secret);
     }
 
     @Override
@@ -38,7 +43,7 @@ public class TitleScreenMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        npcs.add(new Walrus(getPositionByTileIndex(18, 9).subtract(new Point(0, 13)), this, "Congratulations you found me"));
+        npcs.add(new Walrus(getPositionByTileIndex(18, 9).subtract(new Point(0, 13)), this, "Congratulations you found me", secret));
 
         return npcs;
     }

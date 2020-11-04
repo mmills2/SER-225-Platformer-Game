@@ -10,14 +10,21 @@ public class Secret {
 
     protected SpriteFont title;
     protected BufferedImage image;
+    protected int id;
 
-    public Secret (String title){
-        this.title = new SpriteFont(title, 500, 560, "Arial", 12, Color.BLACK);
-        //this.image = image;
+    public Secret (String title, BufferedImage image, int id){
+        this.title = new SpriteFont(title, 690, 535, "Arial", 12, Color.WHITE);
+        this.image = image;
+        this.id = id;
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawFilledRectangleWithBorder(500, 560, 100, 75, new Color(10f, 4f, 111f), Color.BLACK, 2);
+        graphicsHandler.drawFilledRectangleWithBorder(610, 490, 175, 76, new Color(0.02f, 0.01f, 0.31f), Color.BLACK, 2);
+        graphicsHandler.drawImage(image, 623, 503, 50, 50);
         title.draw(graphicsHandler);
+    }
+
+    public void printSecret(){
+        System.out.println(title.getText());
     }
 }
