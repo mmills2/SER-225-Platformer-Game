@@ -106,7 +106,7 @@ public class Level4 extends Map{
             ));
         }
         enhancedMapTiles.add(new EndLevelBox(
-                getPositionByTileIndex(32, 7)
+                getPositionByTileIndex(39, 2)
         ));
 
 
