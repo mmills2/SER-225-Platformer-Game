@@ -54,7 +54,7 @@ public class Level5 extends Map {
         enemies.add(new FishEnemy(getPositionByTileIndex(42, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(46, 13), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(17, 14), Direction.LEFT));
-        enemies.add(new FishEnemy(getPositionByTileIndex(36, 15), Direction.RIGHT));
+        //enemies.add(new FishEnemy(getPositionByTileIndex(36, 15), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(30, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(52, 13), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(6, 14), Direction.RIGHT));
@@ -64,10 +64,10 @@ public class Level5 extends Map {
         enemies.add(new FishEnemy(getPositionByTileIndex(52, 14), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(40, 15), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(39, 15), Direction.LEFT));
-        enemies.add(new FishEnemy(getPositionByTileIndex(38, 15), Direction.LEFT));
-        enemies.add(new FishEnemy(getPositionByTileIndex(37, 15), Direction.RIGHT));
-        enemies.add(new FishEnemy(getPositionByTileIndex(36, 16), Direction.LEFT));
-        enemies.add(new FishEnemy(getPositionByTileIndex(35, 16), Direction.LEFT));
+        //enemies.add(new FishEnemy(getPositionByTileIndex(3, 15), Direction.LEFT));
+        //enemies.add(new FishEnemy(getPositionByTileIndex(3, 15), Direction.RIGHT));
+        //enemies.add(new FishEnemy(getPositionByTileIndex(36, 16), Direction.LEFT));
+        //enemies.add(new FishEnemy(getPositionByTileIndex(35, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(31, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(32, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(33, 16), Direction.RIGHT));
@@ -123,8 +123,8 @@ public class Level5 extends Map {
         ));
         enhancedMapTiles.add(new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getPositionByTileIndex(32, 7),
-                getPositionByTileIndex(43, 7),
+                getPositionByTileIndex(39, 3),
+                getPositionByTileIndex(43, 3),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
 
@@ -177,7 +177,15 @@ public class Level5 extends Map {
 
 
         return enhancedMapTiles;
-    }
 
+    }
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        npcs.add(new Walrus(getPositionByTileIndex(37, 18).subtract(new Point(0, 13)), this, "Welcome to the Sneaky Cave"));
+
+        return npcs;
+    }
 
 }
