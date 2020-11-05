@@ -153,6 +153,9 @@ public class Level5 extends Map {
                     getPositionByTileIndex(6 + i, 13)
             ));
         }
+        enhancedMapTiles.add(new SkyWater(
+                getPositionByTileIndex(24, 18)
+        ));
         for (int i = 0; i < 47; i++) {
 
             enhancedMapTiles.add(new Water(
