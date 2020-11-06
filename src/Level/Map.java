@@ -395,7 +395,4 @@ public abstract class Map {
         camera.draw(graphicsHandler);
     }
 
-    public void printSeceret(){
-        secret.printSecret();
-    }
 }

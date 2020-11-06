@@ -7,7 +7,6 @@ import GameObject.Sprite;
 import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,6 +42,8 @@ public class GamePanel extends JPanel {
 	protected long pauseKeyTime;
 	protected boolean enteringPause;
 	boolean startLimiter;
+	protected SpriteFont returnInstructionsLabel;
+
 	/*
 	 * The JPanel and various important class instances are setup here
 	 */
@@ -60,6 +61,8 @@ public class GamePanel extends JPanel {
 		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Comic Sans", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(2.0f);
+
+		returnInstructionsLabel = new SpriteFont("Press Esc to return to the menu", 20, 560, "Times New Roman", 30, Color.white);
 
 		timerFont = new SpriteFont("", 650, 20, "Comic Sans", 24, Color.white);
 		timerFont.setOutlineColor(Color.black);
@@ -114,6 +117,19 @@ public class GamePanel extends JPanel {
 			}
 		}
 
+		if(isGamePaused){
+
+			if (Keyboard.isKeyUp(Key.ESC)) {
+				keyLocker.unlockKey(Key.ESC);
+			}
+
+			// if esc is pressed, go back to main menu
+			if (!keyLocker.isKeyLocked(Key.ESC) && Keyboard.isKeyDown(Key.ESC)) {
+				ScreenCoordinator.setGameState(GameState.MENU);
+				isGamePaused = !isGamePaused;
+			}
+		}
+
 		if (!isGamePaused) {
 			if(!enteringPause) {
 				pauseTime += System.currentTimeMillis() - pauseKeyTime;
@@ -157,6 +173,7 @@ public class GamePanel extends JPanel {
 		// if game is paused, draw pause gfx over Screen gfx
 		if (isGamePaused) {
 			pauseLabel.draw(graphicsHandler);
+			returnInstructionsLabel.draw(graphicsHandler);
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
 		}
 		if(ScreenCoordinator.getGameState() == GameState.LEVEL) {

@@ -138,10 +138,10 @@ public class Walrus extends NPC {
         if (intersects(player) && Keyboard.isKeyDown(Key.SPACE)) {
             talkedTo = true;
             timer.setWaitTime(talkedToTime);
-            if(associatedSecret != null && !Screen.creditSecretStatus){
+            if(associatedSecret != null && !Screen.getSecretStatus(associatedSecret.getId())){
                 foundSecret = true;
                 Screen.anySecretFound = true;
-                Screen.creditSecretStatus = true;
+                Screen.setSecretStatus(associatedSecret.getId(), true);
             }
         };
         if (talkedTo && timer.isTimeUp()) {

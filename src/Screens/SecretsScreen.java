@@ -35,7 +35,7 @@ public class SecretsScreen extends Screen{
         overTheTree = new SpriteFont("Over The Tree", 153, 135, "Comic Sans", 15, new Color(49, 207, 240));
         overTheTree.setOutlineColor(Color.black);
         overTheTree.setOutlineThickness(2);
-        hiddenGrove = new SpriteFont("Over The Tree", 253, 135, "Comic Sans", 15, new Color(49, 207, 240));
+        hiddenGrove = new SpriteFont("Hidden Grove", 306, 135, "Comic Sans", 15, new Color(49, 207, 240));
         hiddenGrove.setOutlineColor(Color.black);
         hiddenGrove.setOutlineThickness(2);
         creditScreenSecret = "LockedSecret.png";
@@ -50,7 +50,7 @@ public class SecretsScreen extends Screen{
     public void update() {
         background.update(player);
         if(Screen.creditSecretStatus){creditScreenSecret = "CreditScreenSecret.png";}
-        if(Screen.level2SecretStatus){level2Secret = "CreditScreenSecret.png";}
+        if(Screen.level2SecretStatus){level2Secret = "Level2Secret.png";}
 
         if (Keyboard.isKeyUp(Key.ESC)) {
             keyLocker.unlockKey(Key.ESC);
@@ -69,5 +69,8 @@ public class SecretsScreen extends Screen{
         if(Screen.creditSecretStatus){overTheTree.draw(graphicsHandler);}
         graphicsHandler.drawFilledRectangleWithBorder(150, 150, 100, 100, Color.BLACK, Color.DARK_GRAY, 5);
         graphicsHandler.drawImage(ImageLoader.load(creditScreenSecret), 153, 153, 95, 95);
+        if(Screen.level2SecretStatus){hiddenGrove.draw(graphicsHandler);}
+        graphicsHandler.drawFilledRectangleWithBorder(300, 150, 100, 100, Color.BLACK, Color.DARK_GRAY, 5);
+        graphicsHandler.drawImage(ImageLoader.load(level2Secret), 303, 153, 95, 95);
     }
 }

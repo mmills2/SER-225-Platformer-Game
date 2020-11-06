@@ -109,7 +109,7 @@ public class Level2 extends Map {
                 getPositionByTileIndex(56, 22)
         ));
 
-        for(int i = 0; i < 7; i++){
+        for(int i = 0; i < 6; i++){
             enhancedMapTiles.add(new TopWater(
                     getPositionByTileIndex(87 + i, 21)
             ));

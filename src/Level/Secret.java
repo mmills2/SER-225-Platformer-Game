@@ -11,10 +11,12 @@ public class Secret {
     protected SpriteFont title;
     protected BufferedImage image;
     protected boolean isFound;
+    protected int id;
 
-    public Secret (String title, BufferedImage image){
+    public Secret (String title, BufferedImage image, int id){
         this.title = new SpriteFont(title, 690, 535, "Arial", 12, Color.WHITE);
         this.image = image;
+        this.id = id;
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -23,8 +25,8 @@ public class Secret {
         title.draw(graphicsHandler);
     }
 
-    public void printSecret(){
-        System.out.println(title.getText());
+    public int getId(){
+        return id;
     }
 
     public void setIsFound(boolean isFound){

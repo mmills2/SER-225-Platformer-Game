@@ -22,8 +22,8 @@ public class ScreenCoordinator extends Screen {
 	}
 
 	// Other Screens can set the gameState of this class to force it to change the currentScreen
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
+	public static void setGameState(GameState newGameState) {
+		gameState = newGameState;
 	}
 
 	@Override
