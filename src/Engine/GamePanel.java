@@ -37,7 +37,7 @@ public class GamePanel extends JPanel {
 	protected static long startTime;
 	protected static int minutesPassed = 0;
 	protected long timePassed ;
-	protected long secondsPassed;
+	protected static long secondsPassed;
 	protected static long pauseTime;
 	protected long pauseKeyTime;
 	protected boolean enteringPause;
@@ -200,5 +200,14 @@ public class GamePanel extends JPanel {
 
 	public static void pauseTimer(){
 		PlayLevelScreen.setRunning(false);
+	}
+
+	public static long getMinutesPassed()
+	{
+		return minutesPassed;
+	}
+	public static long getSecondsPassed()
+	{
+		return secondsPassed;
 	}
 }
