@@ -434,8 +434,8 @@ public abstract class Player extends GameObject {
         this.facingDirection = facingDirection;
     }
 
-    public void setLevelState(LevelState levelState) {
-        this.levelState = levelState;
+    public LevelState getLevelState() {
+        return levelState;
     }
 
     public void addListener(PlayerListener listener) {
