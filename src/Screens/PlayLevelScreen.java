@@ -85,6 +85,31 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelClearedScreen.initialize();
                 screenTimer.setWaitTime(2500);
                 playLevelScreenState = PlayLevelScreenState.LEVEL_WIN_MESSAGE;
+                if(curMap == 0)
+                {
+                    HighScoreScreen.setLevelOneMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelOneSeconds(GamePanel.getSecondsPassed());
+                }
+                if(curMap == 1)
+                {
+                    HighScoreScreen.setLevelTwoMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelTwoSeconds(GamePanel.getSecondsPassed());
+                }
+                if(curMap == 2)
+                {
+                    HighScoreScreen.setLevelThreeMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelThreeSeconds(GamePanel.getSecondsPassed());
+                }
+                if(curMap == 3)
+                {
+                    HighScoreScreen.setLevelFourMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelFourSeconds(GamePanel.getSecondsPassed());
+                }
+                if(curMap == 4)
+                {
+                    HighScoreScreen.setLevelFiveMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelFiveSeconds(GamePanel.getSecondsPassed());
+                }
                 break;
             // if level cleared screen is up and the timer is up for how long it should stay out, go back to main menu
             case LEVEL_WIN_MESSAGE:
