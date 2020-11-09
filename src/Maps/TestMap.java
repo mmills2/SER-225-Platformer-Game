@@ -10,6 +10,7 @@ import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import Utils.Point;
+import PowerUps.Milk;
 
 import java.util.ArrayList;
 
@@ -68,5 +69,14 @@ public class TestMap extends Map {
         npcs.add(new Walrus(getPositionByTileIndex(30, 10).subtract(new Point(0, 13)), this, "Hello!"));
 
         return npcs;
+    }
+
+    @Override
+    public ArrayList<PowerUp> loadPowerUps() {
+        ArrayList<PowerUp> powerUps = new ArrayList<>();
+
+        powerUps.add(new Milk(getPositionByTileIndex(18, 9)));
+
+        return powerUps;
     }
 }

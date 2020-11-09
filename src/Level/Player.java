@@ -1,15 +1,17 @@
 package Level;
 
-import Engine.Key;
-import Engine.KeyLocker;
-import Engine.Keyboard;
+import Engine.*;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import Level.Tileset;
-import Engine.GamePanel;
+
+import javax.swing.*;
+
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -37,6 +39,9 @@ public abstract class Player extends GameObject {
     protected LevelState levelState;
     protected boolean underwater;
     protected boolean spaceState;
+    protected boolean milkedUp;
+    protected boolean flashingPlayer;
+    protected String previousAnimation;
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -51,6 +56,9 @@ public abstract class Player extends GameObject {
     // if true, player cannot be hurt by enemies (good for testing)
     protected boolean isInvincible = false;
 
+    protected Timer timer;
+    protected int iFrameTime;
+
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
@@ -61,6 +69,22 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
         underwater = false;
         spaceState = true;
+        milkedUp = false;
+        flashingPlayer = false;
+        previousAnimation = currentAnimationName;
+        iFrameTime = 0;
+
+        timer = new Timer(25000 / Config.FPS, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                playerFlash();
+                if(iFrameTime > 12){
+                    timer.stop();
+                    isInvincible = false;
+                }
+                iFrameTime++;
+            }
+        });
+        timer.setRepeats(true);
     }
 
     public void update() {
@@ -115,9 +139,7 @@ public abstract class Player extends GameObject {
     }
 
     // set swimming state on player for water tiles
-    public void setPlayerSwimming(){underwater = true;}
-
-    public void setPlayerNotSwimming(){underwater = false;}
+    public void setPlayerSwimming(boolean setState){underwater = setState;}
 
     // add gravity to player, which is a downward force
     protected void applyGravity() {
@@ -146,7 +168,12 @@ public abstract class Player extends GameObject {
     // player STANDING state logic
     protected void playerStanding() {
         // sets animation to a STAND animation based on which way player is facing
-        currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        if(!milkedUp) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        }
+        else{
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_STAND_RIGHT" : "MILKED_STAND_LEFT";
+        }
 
         // if walk left or walk right key is pressed, player enters WALKING state
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
@@ -163,12 +190,24 @@ public abstract class Player extends GameObject {
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
+
+        if(flashingPlayer) {
+            if (currentAnimationName != "INVINCIBLE") {
+                previousAnimation = currentAnimationName;
+                currentAnimationName = "INVINCIBLE";
+            }
+        }
     }
 
     // player WALKING state logic
     protected void playerWalking() {
         // sets animation to a WALK animation based on which way player is facing
-        currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+        if(!milkedUp) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+        }
+        else{
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_WALK_RIGHT" : "MILKED_WALK_LEFT";
+        }
 
         if(underwater){walkSpeed = 1.5f;}
         else{walkSpeed = 2.1f;}
@@ -199,12 +238,24 @@ public abstract class Player extends GameObject {
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
+
+        if(flashingPlayer) {
+            if (currentAnimationName != "INVINCIBLE") {
+                previousAnimation = currentAnimationName;
+                currentAnimationName = "INVINCIBLE";
+            }
+        }
     }
 
     // player CROUCHING state logic
     protected void playerCrouching() {
         // sets animation to a CROUCH animation based on which way player is facing
-        currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
+        if(!milkedUp) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
+        }
+        else{
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_CROUCH_RIGHT" : "MILKED_CROUCH_LEFT";
+        }
 
         // if crouch key is released, player enters STANDING state
         if (Keyboard.isKeyUp(CROUCH_KEY)) {
@@ -215,6 +266,13 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
+        }
+
+        if(flashingPlayer) {
+            if (currentAnimationName != "INVINCIBLE") {
+                previousAnimation = currentAnimationName;
+                currentAnimationName = "INVINCIBLE";
+            }
         }
     }
 
@@ -228,7 +286,12 @@ public abstract class Player extends GameObject {
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
             // sets animation to a JUMP animation based on which way player is facing
-            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+            if(!milkedUp) {
+                currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+            }
+            else{
+                currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_JUMP_RIGHT" : "MILKED_JUMP_LEFT";
+            }
 
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
@@ -254,9 +317,19 @@ public abstract class Player extends GameObject {
 
             // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
             if (previousY > Math.round(y)) {
-                currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+                if(!milkedUp) {
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+                }
+                else{
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_JUMP_RIGHT" : "MILKED_JUMP_LEFT";
+                }
             } else {
-                currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
+                if(!milkedUp) {
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
+                }
+                else{
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_FALL_RIGHT" : "MILKED_FALL_LEFT";
+                }
             }
 
             // allows you to move left and right while in the air
@@ -295,6 +368,13 @@ public abstract class Player extends GameObject {
                     }
                 }
             }
+
+            if(flashingPlayer) {
+                if (currentAnimationName != "INVINCIBLE") {
+                    previousAnimation = currentAnimationName;
+                    currentAnimationName = "INVINCIBLE";
+                }
+            }
         }
 
         // if player last frame was in air and this frame is now on ground, player enters STANDING state
@@ -302,8 +382,6 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.STANDING;
         }
     }
-
-    public boolean getUnderwater(){return underwater;}
 
     // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
     protected void increaseMomentum() {
@@ -351,7 +429,11 @@ public abstract class Player extends GameObject {
         if (!isInvincible) {
             // if map entity is an enemy, kill player on touch
             if (mapEntity instanceof Enemy) {
-                levelState = LevelState.PLAYER_DEAD;
+                if(milkedUp){
+                    milkedUp = false;
+                    startIFrames();
+                }
+                else{ levelState = LevelState.PLAYER_DEAD;}
             }
         }
     }
@@ -444,5 +526,17 @@ public abstract class Player extends GameObject {
 
     public void setMapCameraState(boolean setState){
         map.setAdjustCamera(setState);
+    }
+
+    public void setMilkedUp(boolean setState){ milkedUp = setState;}
+
+    // starts the player's invincibility frames
+    public void startIFrames(){
+        isInvincible = true;
+        timer.start();
+    }
+
+    private void playerFlash(){
+        flashingPlayer = !flashingPlayer;
     }
 }

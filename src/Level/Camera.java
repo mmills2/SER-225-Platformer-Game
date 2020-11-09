@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 // This class represents a Map's "Camera", aka a piece of the map that is currently included in a level's update/draw logic based on what should be shown on screen.
-// A majority of its job is just determining which map tiles, enemies, npcs, and enhanced map tiles are "active" each frame (active = included in update/draw cycle)
+// A majority of its job is just determining which map tiles, enemies, npcs, power ups, and enhanced map tiles are "active" each frame (active = included in update/draw cycle)
 public class Camera extends Rectangle {
 
     // the current map this camera is attached to
@@ -26,6 +26,7 @@ public class Camera extends Rectangle {
     private ArrayList<Enemy> activeEnemies = new ArrayList<>();
     private ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
     private ArrayList<NPC> activeNPCs = new ArrayList<>();
+    private ArrayList<PowerUp> activePowerUps = new ArrayList<>();
 
     // determines how many tiles off screen an entity can be before it will be deemed inactive and not included in the update/draw cycles until it comes back in range
     private final int UPDATE_OFF_SCREEN_RANGE = 4;
@@ -71,6 +72,7 @@ public class Camera extends Rectangle {
         activeEnemies = loadActiveEnemies();
         activeEnhancedMapTiles = loadActiveEnhancedMapTiles();
         activeNPCs = loadActiveNPCs();
+        activePowerUps = loadActivePowerUps();
 
         for (Enemy enemy : activeEnemies) {
             enemy.update(player);
@@ -82,6 +84,10 @@ public class Camera extends Rectangle {
 
         for (NPC npc : activeNPCs) {
             npc.update(player);
+        }
+
+        for(PowerUp powerUp : activePowerUps){
+            powerUp.update(player);
         }
     }
 
@@ -172,8 +178,37 @@ public class Camera extends Rectangle {
         return activeNPCs;
     }
 
+    // determine which power ups are active (within range of the camera)
+    // if power up is currently active and was also active last frame, nothing special happens and power up is included in active list
+    // if power up is currently active but last frame was inactive, it will have its status set to active and power up is included in active list
+    // if power up is currently inactive but last frame was active, it will have its status set to inactive, have its initialize method called if its respawnable
+    //      (which will set it back up to its default state), and not include it in the active list
+    //      next time a respawnable power up is determined active, since it was reset back to default state upon going inactive, it will essentially be "respawned" in its starting state
+    // if power up is currently set to REMOVED, it is permanently removed from the map's list of power ups and will never be able to be active again
+    private ArrayList<PowerUp> loadActivePowerUps() {
+        ArrayList<PowerUp> activePowerUps = new ArrayList<>();
+        for (int i = map.getPowerUps().size() - 1; i >= 0; i--) {
+            PowerUp powerUp = map.getPowerUps().get(i);
+
+            if (isMapEntityActive(powerUp)) {
+                activePowerUps.add(powerUp);
+                if (powerUp.mapEntityStatus == MapEntityStatus.INACTIVE) {
+                    powerUp.setMapEntityStatus(MapEntityStatus.ACTIVE);
+                }
+            } else if (powerUp.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
+                powerUp.setMapEntityStatus(MapEntityStatus.INACTIVE);
+                if (powerUp.isRespawnable()) {
+                    powerUp.initialize();
+                }
+            } else if (powerUp.getMapEntityStatus() == MapEntityStatus.REMOVED) {
+                map.getPowerUps().remove(i);
+            }
+        }
+        return activePowerUps;
+    }
+
     /*
-        determines if map entity (enemy, enhanced map tile, or npc) is active by the camera's standards
+        determines if map entity (enemy, enhanced map tile, power ups, or npc) is active by the camera's standards
         1. if entity's status is REMOVED, it is not active, no questions asked
         2. if entity's status is not REMOVED, then there's additional checks that take place:
             1. if entity's isUpdateOffScreen attribute is true, it is active
@@ -220,6 +255,11 @@ public class Camera extends Rectangle {
                 npc.draw(graphicsHandler);
             }
         }
+        for (PowerUp powerUp : activePowerUps) {
+            if (containsDraw(powerUp)) {
+                powerUp.draw(graphicsHandler);
+            }
+        }
     }
 
     // checks if a game object's position falls within the camera's current radius
@@ -247,6 +287,10 @@ public class Camera extends Rectangle {
 
     public ArrayList<NPC> getActiveNPCs() {
         return activeNPCs;
+    }
+
+    public ArrayList<PowerUp> getActivePowerUps() {
+        return activePowerUps;
     }
 
     // gets end bound X position of the camera (start position is always 0)

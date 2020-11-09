@@ -22,7 +22,7 @@ public class TopWater extends EnhancedMapTile {
     public void update(Player player) {
         super.update(player);
         if (intersects(player)) {
-                player.setPlayerSwimming();
+                player.setPlayerSwimming(true);
         }
     }
 }
