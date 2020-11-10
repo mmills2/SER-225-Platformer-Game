@@ -32,7 +32,7 @@ public class Level3 extends Map{
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(new BugEnemy(getPositionByTileIndex(5, 11), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(18, 12), Direction.RIGHT));
-        enemies.add(new FishEnemy(getPositionByTileIndex(29, 11), Direction.LEFT));
+        enemies.add(new FishEnemy(getPositionByTileIndex(29, 12), Direction.LEFT));
         return enemies;
     }
 
