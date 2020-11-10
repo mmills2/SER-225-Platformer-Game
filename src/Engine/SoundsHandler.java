@@ -47,12 +47,12 @@ public class SoundsHandler {
 
         clip.loop(000);
 
-        if (PlayLevelScreen.isDead()==true) {
+
 
 
             clip.start();
 
-        }
+
 
 
 

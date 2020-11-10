@@ -445,7 +445,7 @@ public abstract class Player extends GameObject {
                 }
                 else{ levelState = LevelState.PLAYER_DEAD;}
                 levelState = LevelState.PLAYER_DEAD;
-                new SoundsHandler("dead");
+
             }
         }
     }
@@ -484,6 +484,7 @@ public abstract class Player extends GameObject {
         GamePanel.pauseTimer();
         // change player animation to DEATH
         if (!currentAnimationName.startsWith("DEATH")) {
+            new SoundsHandler("dead");
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "DEATH_RIGHT";
             } else {
