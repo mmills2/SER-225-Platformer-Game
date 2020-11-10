@@ -64,7 +64,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.addListener(this);
         this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-new SoundsHandler("theme");
+        new SoundsHandler("theme");
     }
 
     public static boolean isDead() {
@@ -152,7 +152,6 @@ new SoundsHandler("theme");
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
-
             case LEVEL_COMPLETED:
             case PLAYER_DEAD:
                 map.draw(graphicsHandler);

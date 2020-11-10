@@ -391,8 +391,6 @@ public abstract class Player extends GameObject {
         }
     }
 
-    public boolean getUnderwater(){return underwater;}
-
     // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
     protected void increaseMomentum() {
         momentumY += momentumYIncrease;
@@ -444,8 +442,6 @@ public abstract class Player extends GameObject {
                     startIFrames();
                 }
                 else{ levelState = LevelState.PLAYER_DEAD;}
-                levelState = LevelState.PLAYER_DEAD;
-
             }
         }
     }
