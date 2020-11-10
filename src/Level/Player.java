@@ -1,15 +1,12 @@
 package Level;
 
-import Engine.Key;
-import Engine.KeyLocker;
-import Engine.Keyboard;
+import Engine.*;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
 import java.util.ArrayList;
 import Level.Tileset;
-import Engine.GamePanel;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -352,6 +349,7 @@ public abstract class Player extends GameObject {
             // if map entity is an enemy, kill player on touch
             if (mapEntity instanceof Enemy) {
                 levelState = LevelState.PLAYER_DEAD;
+                new SoundsHandler("dead");
             }
         }
     }

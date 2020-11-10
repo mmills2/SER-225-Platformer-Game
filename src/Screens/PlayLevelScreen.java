@@ -27,6 +27,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
     protected int curMap;
     public static boolean running = false;
+    public static boolean dead = false;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -65,18 +66,28 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     }
 
+    public static boolean isDead() {
+        return dead;
+    }
+
+    public static void setDead(boolean dead) {
+        PlayLevelScreen.dead = dead;
+    }
+
     public void update() {
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 running = true;
+                setDead(false);
                 player.update();
                 map.update(player);
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
                 running = false;
+                setDead(false);
                 levelClearedScreen = new LevelClearedScreen();
                 levelClearedScreen.initialize();
                 screenTimer.setWaitTime(2500);
@@ -85,6 +96,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // if level cleared screen is up and the timer is up for how long it should stay out, go back to main menu
             case LEVEL_WIN_MESSAGE:
                 running = false;
+                setDead(false);
                 if (screenTimer.isTimeUp()) {
                     levelClearedScreen = null;
                     goToNextLevel();
@@ -93,6 +105,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // if player died in level, bring up level lost screen
             case PLAYER_DEAD:
                 running = false;
+                setDead(false);
                 levelLoseScreen = new LevelLoseScreen(this);
                 levelLoseScreen.initialize();
                 playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE_MESSAGE;
@@ -100,6 +113,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             case LEVEL_LOSE_MESSAGE:
                 running = false;
+                dead=false;
                 levelLoseScreen.update();
                 break;
         }
