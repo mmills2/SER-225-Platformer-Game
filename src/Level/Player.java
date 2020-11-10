@@ -29,7 +29,7 @@ public abstract class Player extends GameObject {
     protected float moveAmountX, moveAmountY;
     protected boolean ignoreRight = false;
     protected boolean ignoreLeft = false;
-
+    public static boolean jumping = false;
     // values used to keep track of player's current state
     protected PlayerState playerState;
     protected PlayerState previousPlayerState;
@@ -296,6 +296,7 @@ public abstract class Player extends GameObject {
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight;
+            new SoundsHandler();
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
@@ -306,7 +307,10 @@ public abstract class Player extends GameObject {
         }
 
         // if player is in air (currently in a jump) and has more jumpForce, continue sending player upwards
+
         else if (airGroundState == AirGroundState.AIR) {
+
+
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
@@ -315,10 +319,12 @@ public abstract class Player extends GameObject {
                 }
             }
 
+
             // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
             if (previousY > Math.round(y)) {
                 if(!milkedUp) {
                     currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+
                 }
                 else{
                     currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_JUMP_RIGHT" : "MILKED_JUMP_LEFT";
@@ -330,6 +336,7 @@ public abstract class Player extends GameObject {
                 else{
                     currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_FALL_RIGHT" : "MILKED_FALL_LEFT";
                 }
+
             }
 
             // allows you to move left and right while in the air
@@ -351,6 +358,7 @@ public abstract class Player extends GameObject {
             // if player is falling, increases momentum as player falls so it falls faster over time
             if (moveAmountY > 0) {
                 increaseMomentum();
+
             }
 
             if(underwater){

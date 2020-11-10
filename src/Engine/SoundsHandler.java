@@ -23,22 +23,25 @@ public class SoundsHandler {
         DeathSound();
 
     }
+    public SoundsHandler(){
+        JumpSound();
+    }
     public void DeathSound()
     {      try {
         // Open an audio input stream.
-        URL url = new URL("https://bigsoundbank.com/UPLOAD/wav/0477.wav");
-        //URL url2 = new URL("https://bigsoundbank.com/UPLOAD/wav/0267.wav");
 
         File f = new File("src/Scream.wav");
+
         AudioInputStream audioIn1 = AudioSystem.getAudioInputStream(f);
+
 
         // Get a sound clip resource.
         Clip clip = AudioSystem.getClip();
-        //Clip clip1 = AudioSystem.getClip();
+
         // Open audio clip and load samples from the audio input stream.
-        //clip1.open(audioIn1);
+
         clip.open(audioIn1);
-        int count=0;
+
         //System.out.println(count);
 
 
@@ -50,6 +53,7 @@ public class SoundsHandler {
             clip.start();
 
         }
+
 
 
 
@@ -66,6 +70,38 @@ public class SoundsHandler {
         e.printStackTrace();
     }
     }
+    public void JumpSound(){
+        int count=0;
+        try {
+        File f2 = new File("src/Jump.wav");
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(f2);
+
+        Clip clip1 = AudioSystem.getClip();
+            clip1.open(audioIn);
+
+            clip1.loop(000);
+
+                clip1.start();
+
+
+
+
+
+
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("0");
+        } catch (LineUnavailableException e) {
+            System.out.println("e");
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     private class Time implements LineListener{
 
