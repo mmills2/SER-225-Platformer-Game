@@ -296,7 +296,7 @@ public abstract class Player extends GameObject {
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight;
-            new SoundsHandler();
+            new SoundsHandler("jump");
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;

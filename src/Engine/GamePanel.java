@@ -103,6 +103,7 @@ public class GamePanel extends JPanel {
 	public void update() {
 
 		if(PlayLevelScreen.isRunning()) {
+
 			if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
 				isGamePaused = !isGamePaused;
 				keyLocker.lockKey(pauseKey);

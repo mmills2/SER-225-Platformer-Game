@@ -1,9 +1,6 @@
 package Screens;
 
-import Engine.GamePanel;
-import Engine.GraphicsHandler;
-import Engine.ImageLoader;
-import Engine.Screen;
+import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -67,7 +64,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.addListener(this);
         this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-
+new SoundsHandler("theme");
     }
 
     public static boolean isDead() {
@@ -81,12 +78,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void update() {
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
+
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 running = true;
                 setDead(false);
                 player.update();
+
                 map.update(player);
+
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
@@ -152,6 +152,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
+
             case LEVEL_COMPLETED:
             case PLAYER_DEAD:
                 map.draw(graphicsHandler);
