@@ -22,8 +22,8 @@ public class ScreenCoordinator extends Screen {
 	}
 
 	// Other Screens can set the gameState of this class to force it to change the currentScreen
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
+	public static void setGameState(GameState newGameState) {
+		gameState = newGameState;
 	}
 
 	@Override
@@ -53,6 +53,10 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case SECRETS:
 						currentScreen = new SecretsScreen(this);
+						break;
+					case SCOREBOARD:
+						currentScreen = new HighScoreScreen(this);
+						break;
 				}
 				currentScreen.initialize();
 			}

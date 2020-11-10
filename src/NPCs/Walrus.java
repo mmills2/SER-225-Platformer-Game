@@ -5,10 +5,7 @@ import Engine.*;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.Map;
-import Level.NPC;
-import Level.Player;
-import Level.Secret;
+import Level.*;
 import SpriteFont.SpriteFont;
 import Utils.Point;
 import Utils.Stopwatch;
@@ -135,13 +132,13 @@ public class Walrus extends NPC {
 
     @Override
     public void checkTalkedTo(Player player){
-        if (intersects(player) && Keyboard.isKeyDown(Key.SPACE)) {
+        if (intersects(player) && Keyboard.isKeyDown(Key.SPACE) && player.getLevelState() != LevelState.PLAYER_DEAD) {
             talkedTo = true;
             timer.setWaitTime(talkedToTime);
-            if(associatedSecret != null && !Screen.creditSecretStatus){
+            if(associatedSecret != null && !Screen.getSecretStatus(associatedSecret.getId())){
                 foundSecret = true;
                 Screen.anySecretFound = true;
-                Screen.creditSecretStatus = true;
+                Screen.setSecretStatus(associatedSecret.getId(), true);
             }
         };
         if (talkedTo && timer.isTimeUp()) {

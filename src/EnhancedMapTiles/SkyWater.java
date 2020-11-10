@@ -22,7 +22,7 @@ public class SkyWater extends EnhancedMapTile {
     public void update(Player player) {
         super.update(player);
         if (intersects(player)) {
-            player.setPlayerNotSwimming();
+            player.setPlayerSwimming(false);
         }
     }
 }

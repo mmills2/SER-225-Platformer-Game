@@ -2,12 +2,14 @@ package Screens;
 
 import Engine.GamePanel;
 import Engine.GraphicsHandler;
+import Engine.ImageLoader;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Level.Secret;
 import Maps.Level2;
 import Maps.Level3;
 import Maps.Level4;
@@ -27,6 +29,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
     protected int curMap;
     public static boolean running = false;
+    protected Secret level2Secret;
     public static boolean dead = false;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -35,13 +38,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void initialize() {
+        level2Secret = new Secret("Hidden Grove", ImageLoader.load("Level2Secret.png"), 1);
         // define/setup map
         switch(curMap) {
             case (0):
                 this.map = new TestMap();
                 break;
             case (1):
-                this.map = new Level2();
+                this.map = new Level2(level2Secret);
                 break;
             case(2):
                 this.map= new Level3();
@@ -92,6 +96,31 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelClearedScreen.initialize();
                 screenTimer.setWaitTime(2500);
                 playLevelScreenState = PlayLevelScreenState.LEVEL_WIN_MESSAGE;
+                if(curMap == 0)
+                {
+                    HighScoreScreen.setLevelOneMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelOneSeconds(GamePanel.getSecondsPassed());
+                }
+                if(curMap == 1)
+                {
+                    HighScoreScreen.setLevelTwoMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelTwoSeconds(GamePanel.getSecondsPassed());
+                }
+                if(curMap == 2)
+                {
+                    HighScoreScreen.setLevelThreeMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelThreeSeconds(GamePanel.getSecondsPassed());
+                }
+                if(curMap == 3)
+                {
+                    HighScoreScreen.setLevelFourMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelFourSeconds(GamePanel.getSecondsPassed());
+                }
+                if(curMap == 4)
+                {
+                    HighScoreScreen.setLevelFiveMinutes(GamePanel.getMinutesPassed());
+                    HighScoreScreen.setLevelFiveSeconds(GamePanel.getSecondsPassed());
+                }
                 break;
             // if level cleared screen is up and the timer is up for how long it should stay out, go back to main menu
             case LEVEL_WIN_MESSAGE:
