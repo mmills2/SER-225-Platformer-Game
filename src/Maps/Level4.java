@@ -41,11 +41,6 @@ public class Level4 extends Map{
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-
-
-
-
-
         enhancedMapTiles.add(new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
                 getPositionByTileIndex(6, 8),
@@ -56,6 +51,7 @@ public class Level4 extends Map{
                 new Rectangle(0, 6,16,4),
                 Direction.RIGHT
         ));
+
         enhancedMapTiles.add(new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
                 getPositionByTileIndex(20,5),
@@ -66,6 +62,7 @@ public class Level4 extends Map{
                 new Rectangle(0, 6,16,4),
                 Direction.RIGHT
         ));
+
         enhancedMapTiles.add(new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
                 getPositionByTileIndex(18, 8),
@@ -76,6 +73,7 @@ public class Level4 extends Map{
                 new Rectangle(0, 6,16,4),
                 Direction.LEFT
         ));
+
         for(int i = 0; i < 5; i++) {
             enhancedMapTiles.add(new TopWater(
                     getPositionByTileIndex(5 + i, 12)
@@ -86,6 +84,7 @@ public class Level4 extends Map{
 
             ));
         }
+
         for(int i = 0; i < 8; i++){
             enhancedMapTiles.add(new TopWater(
                     getPositionByTileIndex(18 + i, 11)
@@ -97,6 +96,16 @@ public class Level4 extends Map{
                     getPositionByTileIndex(18 + i, 12)
             ));
         }
+
+        for(int i = 0; i < 3; i++){
+            enhancedMapTiles.add(new TopWater(
+                    getPositionByTileIndex(23 + i,5 )
+            ));
+            enhancedMapTiles.add(new SkyWater(
+                    getPositionByTileIndex(23 + i, 4)
+            ));
+        }
+
         for(int i = 0; i < 3; i++){
             enhancedMapTiles.add(new TopWater(
                     getPositionByTileIndex(23 + i,5 )

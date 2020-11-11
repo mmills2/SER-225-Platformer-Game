@@ -40,7 +40,6 @@ public class Level5 extends Map {
         enemies.add(new DinosaurEnemy(getPositionByTileIndex(33, 2).addY(2), getPositionByTileIndex(37, 2).addY(2), Direction.RIGHT));
         enemies.add(new DinosaurEnemy(getPositionByTileIndex(40, 4).addY(2), getPositionByTileIndex(45, 4).addY(2), Direction.RIGHT));
 
-        enemies.add(new FishEnemy(getPositionByTileIndex(52, 17), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(6, 14), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(12, 15), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(49, 16), Direction.LEFT));
@@ -54,9 +53,7 @@ public class Level5 extends Map {
         enemies.add(new FishEnemy(getPositionByTileIndex(42, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(46, 17), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(17, 14), Direction.LEFT));
-        //enemies.add(new FishEnemy(getPositionByTileIndex(36, 15), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(30, 16), Direction.LEFT));
-        enemies.add(new FishEnemy(getPositionByTileIndex(52, 17), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(6, 14), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(12, 15), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(49, 16), Direction.LEFT));
@@ -64,10 +61,6 @@ public class Level5 extends Map {
         enemies.add(new FishEnemy(getPositionByTileIndex(52, 14), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(40, 15), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(39, 15), Direction.LEFT));
-        //enemies.add(new FishEnemy(getPositionByTileIndex(3, 15), Direction.LEFT));
-        //enemies.add(new FishEnemy(getPositionByTileIndex(3, 15), Direction.RIGHT));
-        //enemies.add(new FishEnemy(getPositionByTileIndex(36, 16), Direction.LEFT));
-        //enemies.add(new FishEnemy(getPositionByTileIndex(35, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(31, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(32, 16), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(33, 16), Direction.RIGHT));
