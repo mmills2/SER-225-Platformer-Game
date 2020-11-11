@@ -38,7 +38,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         level2Secret = new Secret("Hidden Grove", ImageLoader.load("Level2Secret.png"), 1);
         // define/setup map
         switch(curMap) {
-            case (4):
+            case (0):
                 this.map = new TestMap();
                 break;
             case (1):
@@ -50,7 +50,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case(3):
                 this.map= new Level4();
                 break;
-            case(0):
+            case(4):
                 this.map= new Level5();
                 break;
             default:
