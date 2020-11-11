@@ -2,6 +2,8 @@ package GameObject;
 
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
+import Engine.Key;
+import Engine.Keyboard;
 import Level.Map;
 import Level.MapTileCollisionHandler;
 import Utils.Direction;
@@ -36,12 +38,24 @@ public class GameObject extends AnimatedSprite {
 	// the map instance this game object "belongs" to.
 	protected Map map;
 
+	// the id of the game object (only used to see if the game object is a player
+	protected int id;
+
 	public GameObject(SpriteSheet spriteSheet, float x, float y, String startingAnimation) {
 		super(spriteSheet, x, y, startingAnimation);
 		this.startPositionX = x;
 		this.startPositionY = y;
 		this.previousX = x;
 		this.previousY = y;
+	}
+
+	public GameObject(SpriteSheet spriteSheet, float x, float y, String startingAnimation, int id) {
+		super(spriteSheet, x, y, startingAnimation);
+		this.startPositionX = x;
+		this.startPositionY = y;
+		this.previousX = x;
+		this.previousY = y;
+		this.id = id;
 	}
 
 	public GameObject(float x, float y, HashMap<String, Frame[]> animations, String startingAnimation) {
@@ -295,6 +309,14 @@ public class GameObject extends AnimatedSprite {
 	// set this game object's map to make it a "part of" the map, allowing calibrated positions and collision handling logic to work
 	public void setMap(Map map) {
 		this.map = map;
+	}
+
+	public boolean isDownPressed(){
+		return Keyboard.isKeyDown(Key.DOWN);
+	}
+
+	public int getId(){
+		return id;
 	}
 
 	@Override
