@@ -71,15 +71,14 @@ public class Level3 extends Map{
                 Direction.RIGHT
         ));
         for(int i = 0; i < 12; i++) {
-            enhancedMapTiles.add(new TopWater(
-                    getPositionByTileIndex(18+i, 11)
-            ));
             enhancedMapTiles.add(new SkyWater(
                     getPositionByTileIndex(18+i, 10)
             ));
-            enhancedMapTiles.add(new Water(
-                    getPositionByTileIndex(18 + i, 12)
-            ));
+            for(int j = 0; j < 2; j++) {
+                enhancedMapTiles.add(new Water(
+                        getPositionByTileIndex(18 + i, 11 + j)
+                ));
+            }
         }
 
         enhancedMapTiles.add(new EndLevelBox(

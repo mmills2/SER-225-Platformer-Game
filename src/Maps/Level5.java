@@ -34,7 +34,6 @@ public class Level5 extends Map {
     // TODO Auto-generated constructor stub
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-        //enemies.add(new BugEnemy(getPositionByTileIndex(4, 11), Direction.LEFT));
         enemies.add(new DinosaurEnemy(getPositionByTileIndex(11, 2).addY(2), getPositionByTileIndex(16, 2).addY(2), Direction.RIGHT));
         enemies.add(new DinosaurEnemy(getPositionByTileIndex(20, 4).addY(2), getPositionByTileIndex(26, 4).addY(2), Direction.RIGHT));
         enemies.add(new DinosaurEnemy(getPositionByTileIndex(33, 2).addY(2), getPositionByTileIndex(37, 2).addY(2), Direction.RIGHT));
@@ -130,15 +129,14 @@ public class Level5 extends Map {
         ));
 
         for (int i = 0; i < 49; i++) {
-            enhancedMapTiles.add(new TopWater(
-                    getPositionByTileIndex(6 + i, 13)
-            ));
             enhancedMapTiles.add(new SkyWater(
                     getPositionByTileIndex(6 + i, 12)
             ));
-            enhancedMapTiles.add(new Water(
-                    getPositionByTileIndex(6 + i, 14)
-            ));
+            for(int j = 0; j < 2; j++) {
+                enhancedMapTiles.add(new Water(
+                        getPositionByTileIndex(6 + i, 13 + j)
+                ));
+            }
         }
         enhancedMapTiles.add(new SkyWater(
                 getPositionByTileIndex(24, 19)

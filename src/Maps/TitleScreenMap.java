@@ -1,19 +1,11 @@
 package Maps;
 
-import Enemies.BugEnemy;
-import Enemies.DinosaurEnemy;
-import Enemies.FishEnemy;
 import EnhancedMapTiles.ChangeCameraState;
-import EnhancedMapTiles.SkyWater;
-import EnhancedMapTiles.TopWater;
-import EnhancedMapTiles.Water;
-import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
 import NPCs.Walrus;
 import Tilesets.CommonTileset;
-import Utils.Direction;
 import Utils.Point;
 import Level.Secret;
 

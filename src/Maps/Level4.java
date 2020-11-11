@@ -75,7 +75,7 @@ public class Level4 extends Map{
         ));
 
         for(int i = 0; i < 5; i++) {
-            enhancedMapTiles.add(new TopWater(
+            enhancedMapTiles.add(new Water(
                     getPositionByTileIndex(5 + i, 12)
 
             ));
@@ -86,19 +86,18 @@ public class Level4 extends Map{
         }
 
         for(int i = 0; i < 8; i++){
-            enhancedMapTiles.add(new TopWater(
-                    getPositionByTileIndex(18 + i, 11)
-            ));
             enhancedMapTiles.add(new SkyWater(
                     getPositionByTileIndex(18 + i, 10)
             ));
-            enhancedMapTiles.add(new Water(
-                    getPositionByTileIndex(18 + i, 12)
-            ));
+            for(int j = 0; j < 2; j++) {
+                enhancedMapTiles.add(new Water(
+                        getPositionByTileIndex(18 + i, 11 + j)
+                ));
+            }
         }
 
         for(int i = 0; i < 3; i++){
-            enhancedMapTiles.add(new TopWater(
+            enhancedMapTiles.add(new Water(
                     getPositionByTileIndex(23 + i,5 )
             ));
             enhancedMapTiles.add(new SkyWater(
@@ -107,7 +106,7 @@ public class Level4 extends Map{
         }
 
         for(int i = 0; i < 3; i++){
-            enhancedMapTiles.add(new TopWater(
+            enhancedMapTiles.add(new Water(
                     getPositionByTileIndex(23 + i,5 )
             ));
             enhancedMapTiles.add(new SkyWater(

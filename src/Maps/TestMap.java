@@ -51,12 +51,11 @@ public class TestMap extends Map {
             enhancedMapTiles.add(new SkyWater(
                     getPositionByTileIndex(26 + i, 10)
             ));
-            enhancedMapTiles.add(new TopWater(
-                    getPositionByTileIndex(26 + i, 11)
-            ));
-            enhancedMapTiles.add(new Water(
-                    getPositionByTileIndex(26 + i, 12)
-            ));
+            for(int j = 0; j < 2; j++) {
+                enhancedMapTiles.add(new Water(
+                        getPositionByTileIndex(26 + i, 11 + j)
+                ));
+            }
         }
 
         return enhancedMapTiles;
