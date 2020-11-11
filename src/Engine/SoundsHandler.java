@@ -1,93 +1,57 @@
 package Engine;
 
+import java.awt.*;
 import java.io.*;
 import javax.sound.sampled.*;
-import Screens.LevelClearedScreen;
 
 // To play sound using Clip, the process need to be alive.
 // Hence, we use a Swing application.
 public class SoundsHandler {
+    protected Clip clip1;
+    protected String fileName;
 
     public SoundsHandler(String string) {
-        if (string.equals("dead")) {
-            DeathSound();
+        if (string.equals("death")) {
+            fileName = "src/died.wav";
+            //initialize();
         }
         if (string.equals("jump")) {
-            JumpSound();
+            fileName = "src/Jump.wav";
+            //initialize();
         }
         if (string.equals("theme")) {
-            ThemeSound();
+            fileName = "src/Theme.wav";
+            //initialize();
         }
     }
 
-    public void DeathSound() {
+    public void initialize(){
         try {
             // Open an audio input stream.
-            File f = new File("src/died.wav");
-            AudioInputStream audioIn1 = AudioSystem.getAudioInputStream(f);
+            File f2 = new File(fileName);
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f2);
 
             // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
+            clip1 = AudioSystem.getClip();
 
             // Open audio clip and load samples from the audio input stream.
-            clip.open(audioIn1);
-            clip.loop(000);
-            clip.start();
+            clip1.open(audioIn);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
-            System.out.println("n");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("0");
         } catch (LineUnavailableException e) {
             System.out.println("e");
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    public void JumpSound(){
-        int count = 0;
-        try {
-            File f2 = new File("src/Jump.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f2);
-            Clip clip1 = AudioSystem.getClip();
-            clip1.open(audioIn);
-            clip1.loop(000);
-            clip1.start();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("0");
-        } catch (LineUnavailableException e) {
-            System.out.println("e");
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void startSound(int count){
+        initialize();
+        clip1.loop(count);
+        clip1.start();
     }
 
-    public void ThemeSound(){
-        int count=0;
-        try {
-            File f2 = new File("src/Theme.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f2);
-            Clip clip1 = AudioSystem.getClip();
-            clip1.open(audioIn);
-            clip1.loop(100);
-            clip1.start();
-            if (LevelClearedScreen.isCleared() == true){
-                clip1.stop();
-            }
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("0");
-        } catch (LineUnavailableException e) {
-            System.out.println("e");
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+    public void stopSound(){ clip1.stop();}
 }

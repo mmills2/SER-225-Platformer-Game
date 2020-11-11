@@ -30,6 +30,7 @@ public abstract class Player extends GameObject {
     protected boolean ignoreRight = false;
     protected boolean ignoreLeft = false;
     public static boolean jumping = false;
+
     // values used to keep track of player's current state
     protected PlayerState playerState;
     protected PlayerState previousPlayerState;
@@ -56,8 +57,14 @@ public abstract class Player extends GameObject {
     // if true, player cannot be hurt by enemies (good for testing)
     protected boolean isInvincible = false;
 
+    // variables for used for invincibility frames
     protected Timer timer;
     protected int iFrameTime;
+
+    // sound handlers for jumping and dying
+    protected SoundsHandler jumpSound;
+    protected SoundsHandler deathSound;
+    protected boolean deathPlayedOnce;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -73,6 +80,9 @@ public abstract class Player extends GameObject {
         flashingPlayer = false;
         previousAnimation = currentAnimationName;
         iFrameTime = 0;
+        jumpSound = new SoundsHandler("jump");
+        deathSound = new SoundsHandler("death");
+        deathPlayedOnce = false;
 
         timer = new Timer(25000 / Config.FPS, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -296,7 +306,7 @@ public abstract class Player extends GameObject {
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight;
-            new SoundsHandler("jump");
+            jumpSound.startSound(0);
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
@@ -441,7 +451,13 @@ public abstract class Player extends GameObject {
                     milkedUp = false;
                     startIFrames();
                 }
-                else{ levelState = LevelState.PLAYER_DEAD;}
+                else{
+                    if(!deathPlayedOnce) {
+                        deathSound.startSound(0);
+                        deathPlayedOnce = true;
+                    }
+                    levelState = LevelState.PLAYER_DEAD;
+                }
             }
         }
     }
