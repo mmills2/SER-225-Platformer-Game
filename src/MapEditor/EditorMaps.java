@@ -9,8 +9,9 @@ import java.util.ArrayList;
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
         return new ArrayList<String>() {{
-            add("TestMap");
-            add("TitleScreen");
+            add("Title Screen");
+            add("Tutorial Map");
+            add("Level1");
             add("Level2");
             add("Level3");
             add("Level4");
@@ -20,10 +21,12 @@ public class EditorMaps {
 
     public static Map getMapByName(String mapName) {
         switch(mapName) {
-            case "TestMap":
-                return new TestMap();
-            case "TitleScreen":
+            case "Title Screen":
                 return new TitleScreenMap();
+            case "Tutorial Map":
+                return new TutorialMap();
+            case "Level1":
+                return new TestMap();
             case "Level2":
                 return new Level2();
             case "Level3":
