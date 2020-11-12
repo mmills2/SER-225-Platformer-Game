@@ -4,6 +4,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Rectangle;
 import GameObject.Sprite;
+import Level.Player;
 import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
@@ -126,6 +127,7 @@ public class GamePanel extends JPanel {
 
 			// if esc is pressed, go back to main menu
 			if (!keyLocker.isKeyLocked(Key.ESC) && Keyboard.isKeyDown(Key.ESC)) {
+				PlayLevelScreen.stopMusic();
 				ScreenCoordinator.setGameState(GameState.MENU);
 				isGamePaused = !isGamePaused;
 			}

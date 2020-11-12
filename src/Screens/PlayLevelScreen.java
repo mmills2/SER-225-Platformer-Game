@@ -27,7 +27,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected int curMap;
     public static boolean running = false;
     protected Secret level2Secret;
-    protected SoundsHandler themeSound;
+    protected static SoundsHandler themeSound;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -181,6 +181,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         themeSound.stopSound();
         initialize();
     }
+
+    public static void stopMusic(){
+        themeSound.stopSound();
+    }
+
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
