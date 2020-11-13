@@ -170,9 +170,4 @@ public class MenuScreen extends Screen {
         if(Screen.anySecretFound){ Secrets.draw(graphicsHandler);}
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
-
-    public int getMenuItemSelected() {
-        return menuItemSelected;
-    }
-
 }

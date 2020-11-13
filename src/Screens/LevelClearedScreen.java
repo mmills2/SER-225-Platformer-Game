@@ -4,7 +4,6 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Engine.ScreenManager;
 import SpriteFont.SpriteFont;
-
 import java.awt.*;
 
 // This class is for the level cleared screen

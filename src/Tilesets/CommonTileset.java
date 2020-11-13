@@ -292,6 +292,26 @@ public class CommonTileset extends Tileset {
 
         mapTiles.add(cavePurpleFlowerTile);
 
+        // sand
+        Frame sandFrame = new FrameBuilder(getSubImage(5, 1), 0)
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder sandTile = new MapTileBuilder(sandFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(sandTile);
+
+        // solid cloud
+        Frame solidCloudFrame = new FrameBuilder(getSubImage(5, 2), 0)
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder solidCloudTile = new MapTileBuilder(solidCloudFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(solidCloudTile);
+
         return mapTiles;
     }
 }

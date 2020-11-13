@@ -10,6 +10,7 @@ import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import Utils.Point;
+import PowerUps.Milk;
 
 import java.util.ArrayList;
 
@@ -50,12 +51,11 @@ public class TestMap extends Map {
             enhancedMapTiles.add(new SkyWater(
                     getPositionByTileIndex(26 + i, 10)
             ));
-            enhancedMapTiles.add(new TopWater(
-                    getPositionByTileIndex(26 + i, 11)
-            ));
-            enhancedMapTiles.add(new Water(
-                    getPositionByTileIndex(26 + i, 12)
-            ));
+            for(int j = 0; j < 2; j++) {
+                enhancedMapTiles.add(new Water(
+                        getPositionByTileIndex(26 + i, 11 + j)
+                ));
+            }
         }
 
         return enhancedMapTiles;
@@ -68,5 +68,14 @@ public class TestMap extends Map {
         npcs.add(new Walrus(getPositionByTileIndex(30, 10).subtract(new Point(0, 13)), this, "Hello!"));
 
         return npcs;
+    }
+
+    @Override
+    public ArrayList<PowerUp> loadPowerUps() {
+        ArrayList<PowerUp> powerUps = new ArrayList<>();
+
+        powerUps.add(new Milk(getPositionByTileIndex(18, 9)));
+
+        return powerUps;
     }
 }

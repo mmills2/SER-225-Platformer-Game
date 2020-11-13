@@ -7,9 +7,9 @@ public abstract class Screen {
     public abstract void initialize();
     public abstract void update();
     public abstract void draw(GraphicsHandler graphicsHandler);
-    public static boolean anySecretFound = true;
-    public static boolean creditSecretStatus = true;
-    public static boolean level2SecretStatus = true;
+    public static boolean anySecretFound = false;
+    public static boolean creditSecretStatus = false;
+    public static boolean level2SecretStatus = false;
 
     public static boolean getSecretStatus(int id){
         switch(id){

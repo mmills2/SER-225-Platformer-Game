@@ -1,9 +1,6 @@
 package Screens;
 
-import Engine.GamePanel;
-import Engine.GraphicsHandler;
-import Engine.ImageLoader;
-import Engine.Screen;
+import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -30,6 +27,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected int curMap;
     public static boolean running = false;
     protected Secret level2Secret;
+    protected static SoundsHandler themeSound;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -66,12 +64,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.addListener(this);
         this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-
+        themeSound = new SoundsHandler("theme");
+        themeSound.startSound(100);
     }
 
     public void update() {
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
+
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 running = true;
@@ -167,17 +167,25 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void resetLevel() {
+        themeSound.stopSound();
         initialize();
     }
 
     public void goBackToMenu() {
+        themeSound.stopSound();
         screenCoordinator.setGameState(GameState.MENU);
     }
 
     public void goToNextLevel(){
         curMap++;
+        themeSound.stopSound();
         initialize();
     }
+
+    public static void stopMusic(){
+        themeSound.stopSound();
+    }
+
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {

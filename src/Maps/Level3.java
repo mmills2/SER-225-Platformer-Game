@@ -32,7 +32,7 @@ public class Level3 extends Map{
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(new BugEnemy(getPositionByTileIndex(5, 11), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(18, 12), Direction.RIGHT));
-        enemies.add(new FishEnemy(getPositionByTileIndex(29, 11), Direction.LEFT));
+        enemies.add(new FishEnemy(getPositionByTileIndex(29, 12), Direction.LEFT));
         return enemies;
     }
 
@@ -71,15 +71,14 @@ public class Level3 extends Map{
                 Direction.RIGHT
         ));
         for(int i = 0; i < 12; i++) {
-            enhancedMapTiles.add(new TopWater(
-                    getPositionByTileIndex(18+i, 11)
-            ));
             enhancedMapTiles.add(new SkyWater(
                     getPositionByTileIndex(18+i, 10)
             ));
-            enhancedMapTiles.add(new Water(
-                    getPositionByTileIndex(18 + i, 12)
-            ));
+            for(int j = 0; j < 2; j++) {
+                enhancedMapTiles.add(new Water(
+                        getPositionByTileIndex(18 + i, 11 + j)
+                ));
+            }
         }
 
         enhancedMapTiles.add(new EndLevelBox(

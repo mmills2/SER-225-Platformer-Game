@@ -34,15 +34,14 @@ public class Level2 extends Map {
         ));
 
         for(int i = 0; i < 10; i++) {
-            enhancedMapTiles.add(new TopWater(
-                    getPositionByTileIndex(3 + i, 19)
-            ));
             enhancedMapTiles.add(new SkyWater(
                     getPositionByTileIndex(3 + i, 18)
             ));
-            enhancedMapTiles.add(new Water(
-                    getPositionByTileIndex(3 + i, 20)
-            ));
+            for(int j = 0; j < 2; j++) {
+                enhancedMapTiles.add(new Water(
+                        getPositionByTileIndex(3 + i, 19 + j)
+                ));
+            }
         }
 
         for(int i = 0; i < 8; i++){
@@ -52,7 +51,7 @@ public class Level2 extends Map {
         }
 
         for(int i = 0; i < 12; i++){
-            enhancedMapTiles.add(new TopWater(
+            enhancedMapTiles.add(new Water(
                     getPositionByTileIndex(19 + i, 20)
             ));
             enhancedMapTiles.add(new SkyWater(
@@ -67,7 +66,7 @@ public class Level2 extends Map {
         }
 
         for(int i = 0; i < 27; i++){
-            enhancedMapTiles.add(new TopWater(
+            enhancedMapTiles.add(new Water(
                     getPositionByTileIndex(44 + i, 17)
             ));
             enhancedMapTiles.add(new SkyWater(
@@ -109,8 +108,8 @@ public class Level2 extends Map {
                 getPositionByTileIndex(56, 22)
         ));
 
-        for(int i = 0; i < 6; i++){
-            enhancedMapTiles.add(new TopWater(
+        for(int i = 0; i < 7; i++){
+            enhancedMapTiles.add(new Water(
                     getPositionByTileIndex(87 + i, 21)
             ));
             enhancedMapTiles.add(new SkyWater(

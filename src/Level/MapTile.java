@@ -5,7 +5,6 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
-
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
@@ -71,6 +70,5 @@ public class MapTile extends MapEntity {
 
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
-        //drawBounds(graphicsHandler, new Color(0, 0, 255, 100));
     }
 }

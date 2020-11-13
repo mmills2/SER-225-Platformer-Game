@@ -51,11 +51,11 @@ public class ScreenCoordinator extends Screen {
 					case TUTORIAL:
 						currentScreen = new TutorialScreen(this);
 						break;
-					case SCOREBOARD:
-						currentScreen = new HighScoreScreen(this);
-						break;
 					case SECRETS:
 						currentScreen = new SecretsScreen(this);
+						break;
+					case SCOREBOARD:
+						currentScreen = new HighScoreScreen(this);
 						break;
 				}
 				currentScreen.initialize();

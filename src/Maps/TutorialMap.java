@@ -27,7 +27,7 @@ import Level.NPC;
 	    
 
 	        enhancedMapTiles.add(new EndLevelBox(
-	                getPositionByTileIndex(10, 5)
+	                getPositionByTileIndex(13, 6)
 	        ));
 
 	        return enhancedMapTiles;
