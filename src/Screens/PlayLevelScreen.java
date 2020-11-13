@@ -87,28 +87,43 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 playLevelScreenState = PlayLevelScreenState.LEVEL_WIN_MESSAGE;
                 if(curMap == 0)
                 {
-                    HighScoreScreen.setLevelOneMinutes(GamePanel.getMinutesPassed());
-                    HighScoreScreen.setLevelOneSeconds(GamePanel.getSecondsPassed());
+                    if((HighScoreScreen.getLevelOneMinutes() * 60) + HighScoreScreen.getLevelOneSeconds() > (GamePanel.getMinutesPassed() * 60) + GamePanel.getSecondsPassed() || (HighScoreScreen.getLevelOneMinutes() * 60) + HighScoreScreen.getLevelOneSeconds() == 0)
+                    {
+                        HighScoreScreen.setLevelOneMinutes(GamePanel.getMinutesPassed());
+                        HighScoreScreen.setLevelOneSeconds(GamePanel.getSecondsPassed());
+                    }
                 }
                 if(curMap == 1)
                 {
-                    HighScoreScreen.setLevelTwoMinutes(GamePanel.getMinutesPassed());
-                    HighScoreScreen.setLevelTwoSeconds(GamePanel.getSecondsPassed());
+                    if((HighScoreScreen.getLevelTwoMinutes() * 60) + HighScoreScreen.getLevelTwoSeconds() > (GamePanel.getMinutesPassed() * 60) + GamePanel.getSecondsPassed() || (HighScoreScreen.getLevelTwoMinutes() * 60) + HighScoreScreen.getLevelTwoSeconds() == 0)
+                    {
+                        HighScoreScreen.setLevelTwoMinutes(GamePanel.getMinutesPassed());
+                        HighScoreScreen.setLevelTwoSeconds(GamePanel.getSecondsPassed());
+                    }
                 }
                 if(curMap == 2)
                 {
-                    HighScoreScreen.setLevelThreeMinutes(GamePanel.getMinutesPassed());
-                    HighScoreScreen.setLevelThreeSeconds(GamePanel.getSecondsPassed());
+                    if((HighScoreScreen.getLevelThreeMinutes() * 60) + HighScoreScreen.getLevelThreeSeconds() > (GamePanel.getMinutesPassed() * 60) + GamePanel.getSecondsPassed() || (HighScoreScreen.getLevelThreeMinutes() * 60) + HighScoreScreen.getLevelThreeSeconds() == 0)
+                    {
+                        HighScoreScreen.setLevelThreeMinutes(GamePanel.getMinutesPassed());
+                        HighScoreScreen.setLevelThreeSeconds(GamePanel.getSecondsPassed());
+                    }
                 }
                 if(curMap == 3)
                 {
-                    HighScoreScreen.setLevelFourMinutes(GamePanel.getMinutesPassed());
-                    HighScoreScreen.setLevelFourSeconds(GamePanel.getSecondsPassed());
+                    if((HighScoreScreen.getLevelFourMinutes() * 60) + HighScoreScreen.getLevelFourSeconds() > (GamePanel.getMinutesPassed() * 60) + GamePanel.getSecondsPassed() || (HighScoreScreen.getLevelFourMinutes() * 60) + HighScoreScreen.getLevelFourSeconds() == 0)
+                    {
+                        HighScoreScreen.setLevelFourMinutes(GamePanel.getMinutesPassed());
+                        HighScoreScreen.setLevelFourSeconds(GamePanel.getSecondsPassed());
+                    }
                 }
                 if(curMap == 4)
                 {
-                    HighScoreScreen.setLevelFiveMinutes(GamePanel.getMinutesPassed());
-                    HighScoreScreen.setLevelFiveSeconds(GamePanel.getSecondsPassed());
+                    if((HighScoreScreen.getLevelFiveMinutes() * 60) + HighScoreScreen.getLevelFiveSeconds() > (GamePanel.getMinutesPassed() * 60) + GamePanel.getSecondsPassed() || (HighScoreScreen.getLevelFiveMinutes() * 60) + HighScoreScreen.getLevelFiveSeconds() == 0)
+                    {
+                        HighScoreScreen.setLevelFiveMinutes(GamePanel.getMinutesPassed());
+                        HighScoreScreen.setLevelFiveSeconds(GamePanel.getSecondsPassed());
+                    }
                 }
                 break;
             // if level cleared screen is up and the timer is up for how long it should stay out, go back to main menu

@@ -170,4 +170,46 @@ public class HighScoreScreen extends Screen{
     {
         levelFiveSeconds = seconds;
     }
+
+    public static long getLevelOneMinutes()
+    {
+        return levelOneMinutes;
+    }
+    public static long getLevelTwoMinutes()
+    {
+        return levelTwoMinutes;
+    }
+    public static long getLevelThreeMinutes()
+    {
+        return levelThreeMinutes;
+    }
+    public static long getLevelFourMinutes()
+    {
+        return levelFourMinutes;
+    }
+    public static long getLevelFiveMinutes()
+    {
+        return levelFiveMinutes;
+    }
+
+    public static long getLevelOneSeconds()
+    {
+        return levelOneSeconds;
+    }
+    public static long getLevelTwoSeconds()
+    {
+        return levelTwoSeconds;
+    }
+    public static long getLevelThreeSeconds()
+    {
+        return levelThreeSeconds;
+    }
+    public static long getLevelFourSeconds()
+    {
+        return levelFourSeconds;
+    }
+    public static long getLevelFiveSeconds()
+    {
+        return levelFiveSeconds;
+    }
 }
