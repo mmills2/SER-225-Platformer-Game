@@ -481,7 +481,7 @@ public abstract class Player extends GameObject {
                     milkedUp = false;
                     startIFrames();
                 }
-                if(shootTimer.isTimeUp()){
+                if(!shootTimer.isTimeUp()){
                     mapEntity.setY(-10000);
                     mapEntity.setIsRespawnable(false);
                 }
