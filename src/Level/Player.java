@@ -1,5 +1,6 @@
 package Level;
 
+import Enemies.Fireball;
 import Engine.*;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
@@ -9,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import Level.Tileset;
+import Utils.Point;
+import Utils.Stopwatch;
 
 import javax.swing.*;
 
@@ -43,6 +46,7 @@ public abstract class Player extends GameObject {
     protected boolean milkedUp;
     protected boolean flashingPlayer;
     protected String previousAnimation;
+    protected Stopwatch shootTimer = new Stopwatch();
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -53,6 +57,8 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    protected Key SHOOT_KEY = Key.Z;
+    protected Fireball fireball;
 
     // if true, player cannot be hurt by enemies (good for testing)
     protected boolean isInvincible = false;
@@ -172,6 +178,9 @@ public abstract class Player extends GameObject {
             case JUMPING:
                 playerJumping();
                 break;
+            case SHOOTING:
+                playerShooting();
+                break;
         }
     }
 
@@ -186,12 +195,12 @@ public abstract class Player extends GameObject {
         }
 
         // if walk left or walk right key is pressed, player enters WALKING state
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        if ((Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY))&& shootTimer.isTimeUp()) {
             playerState = PlayerState.WALKING;
         }
 
         // if jump key is pressed, player enters JUMPING state
-        else if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
+        else if ((Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY))&& shootTimer.isTimeUp()) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
@@ -199,6 +208,9 @@ public abstract class Player extends GameObject {
         // if crouch key is pressed, player enters CROUCHING state
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
+        }
+        else if (Keyboard.isKeyDown(SHOOT_KEY)) {
+            playerState = PlayerState.SHOOTING;
         }
 
         if(flashingPlayer) {
@@ -248,6 +260,9 @@ public abstract class Player extends GameObject {
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
+        else if (Keyboard.isKeyDown(SHOOT_KEY)) {
+            playerState = PlayerState.SHOOTING;
+        }
 
         if(flashingPlayer) {
             if (currentAnimationName != "INVINCIBLE") {
@@ -285,7 +300,22 @@ public abstract class Player extends GameObject {
             }
         }
     }
+    protected void playerShooting() {
+        if(Keyboard.isKeyUp(SHOOT_KEY)) {
+            playerState = PlayerState.STANDING;
+        }
 
+        if(shootTimer.isTimeUp()) {
+            fireball = new Fireball(new Point(this.getX() + 32, this.getY() - 5), 0, 1000);
+
+            shootTimer.setWaitTime(1000);
+            // add fireball enemy to the map for it to offically spawn in the level
+            map.addEnemy(fireball);
+        }
+
+
+
+    }
     // player JUMPING state logic
     protected void playerJumping() {
 
@@ -451,11 +481,16 @@ public abstract class Player extends GameObject {
                     milkedUp = false;
                     startIFrames();
                 }
+                if(shootTimer.isTimeUp()){
+                    mapEntity.setY(-10000);
+                    mapEntity.setIsRespawnable(false);
+                }
                 else{
                     if(!deathPlayedOnce) {
                         deathSound.startSound(0);
                         deathPlayedOnce = true;
                     }
+
                     levelState = LevelState.PLAYER_DEAD;
                 }
             }
