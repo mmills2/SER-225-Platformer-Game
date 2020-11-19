@@ -36,6 +36,7 @@ public class LevelLoseScreen extends Screen {
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.SPACE)) {
             playLevelScreen.restartGame();
+            PlayLevelScreen.setLives(3);
         } else if (Keyboard.isKeyDown(Key.ESC)) {
             playLevelScreen.goBackToMenu();
         }
