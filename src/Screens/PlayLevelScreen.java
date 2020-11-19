@@ -28,6 +28,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public static boolean running = false;
     protected Secret level2Secret;
     protected static SoundsHandler themeSound;
+    protected static int lives = 3;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -178,7 +179,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     @Override
     public void onDeath() {
-        playLevelScreenState = PlayLevelScreenState.PLAYER_DEAD;
+        if(lives == 1) {
+            playLevelScreenState = PlayLevelScreenState.PLAYER_DEAD;
+        }
+        else
+        {
+            resetLevel();
+        }
+        lives--;
     }
 
     public void resetLevel() {
@@ -193,6 +201,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void goToNextLevel(){
         curMap++;
+        themeSound.stopSound();
+        initialize();
+    }
+
+    public void restartGame(){
+        curMap = 0;
         themeSound.stopSound();
         initialize();
     }
@@ -215,5 +229,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public static void setRunning(boolean set)
     {
         running = set;
+    }
+
+    public static int getLives()
+    {
+        return lives;
+    }
+
+    public static void setLives(int newLife)
+    {
+        lives = newLife;
     }
 }

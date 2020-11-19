@@ -35,6 +35,7 @@ public class GamePanel extends JPanel {
 	private final Key pauseKey = Key.P;
 
 	protected SpriteFont timerFont;
+	protected SpriteFont livesFont;
 	protected static long startTime;
 	protected static int minutesPassed = 0;
 	protected long timePassed ;
@@ -68,6 +69,10 @@ public class GamePanel extends JPanel {
 		timerFont = new SpriteFont("", 650, 20, "Comic Sans", 24, Color.white);
 		timerFont.setOutlineColor(Color.black);
 		timerFont.setOutlineThickness(2.0f);
+
+		livesFont = new SpriteFont("", 10, 20, "Comic Sans", 24, Color.white);
+		livesFont.setOutlineColor(Color.black);
+		livesFont.setOutlineThickness(2.0f);
 
 		// Every timer "tick" will call the update method as well as tell the JPanel to repaint
 		// Remember that repaint "schedules" a paint rather than carries it out immediately
@@ -167,6 +172,10 @@ public class GamePanel extends JPanel {
 			}
 			timerFont.setOutlineColor(Color.black);
 			timerFont.setOutlineThickness(2.0f);
+
+			livesFont = new SpriteFont("Lives: " + PlayLevelScreen.getLives(), 10, 20, "Comic Sans", 24, Color.white);
+			livesFont.setOutlineColor(Color.black);
+			livesFont.setOutlineThickness(2.0f);
 		}
 	}
 
@@ -181,6 +190,7 @@ public class GamePanel extends JPanel {
 		}
 		if(ScreenCoordinator.getGameState() == GameState.LEVEL) {
 			timerFont.draw(graphicsHandler);
+			livesFont.draw(graphicsHandler);
 		}
 	}
 

@@ -145,6 +145,7 @@ public class MenuScreen extends Screen {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
                 screenCoordinator.setGameState(GameState.LEVEL);
+                PlayLevelScreen.setLives(3);
             } else if (menuItemSelected == 1) {
                 screenCoordinator.setGameState(GameState.CREDITS);
             } else if (menuItemSelected == 2) {
