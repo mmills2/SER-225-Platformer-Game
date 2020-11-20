@@ -178,6 +178,8 @@ public abstract class Player extends GameObject {
             case JUMPING:
                 playerJumping();
                 break;
+            case SHOOTING:
+                playerShooting(2);
         }
     }
 
@@ -215,7 +217,8 @@ public abstract class Player extends GameObject {
 
         //if shoot key is pressed, player shoots a fireball
         else if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
-           playerShooting(this.getY() + 20);
+           //playerShooting(this.getY() + 20);
+            playerState = PlayerState.SHOOTING;
         }
 
         if(flashingPlayer) {
@@ -273,9 +276,9 @@ public abstract class Player extends GameObject {
         }
 
         //if shoot key is pressed, player shoots a fireball
-        else if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
-            playerShooting(this.getY() + 20);
-        }
+//        else if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
+//            playerShooting(this.getY() + 20);
+//        }
 
         if(flashingPlayer) {
             if (currentAnimationName != "INVINCIBLE") {
@@ -312,10 +315,10 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
         }
 
-        //if shoot key is pressed, player shoots a fireball
-        else if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
-            playerShooting(this.getY() + 30);
-        }
+//        //if shoot key is pressed, player shoots a fireball
+//        else if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
+//            playerShooting(this.getY() + 30);
+//        }
 
         if(flashingPlayer) {
             if (currentAnimationName != "INVINCIBLE") {
@@ -326,11 +329,15 @@ public abstract class Player extends GameObject {
     }
     protected void playerShooting(float fireBallHeight) {
         if(shootTimer.isTimeUp()) {
+            if(Keyboard.isKeyUp(SHOOT_KEY)){
+                playerState = PlayerState.STANDING;
+            }
             if (facingDirection == Direction.RIGHT) {
-                fireball = new Fireball(new Point(this.getX() + 50, fireBallHeight), 2, 1000, map, false);
+                // x = this.getX() + 50
+                fireball = new Fireball(new Point(this.getX() + 12, this.getY() - 5), 0, 1000, map, false);
             }
             else{
-                fireball = new Fireball(new Point(this.getX(), fireBallHeight), -2, 1000, map, false);
+                fireball = new Fireball(new Point(this.getX() + 12, this.getY() - 5), 0, 1000, map, false);
             }
             shootTimer.setWaitTime(1000);
             // add fireball enemy to the map for it to offically spawn in the level
@@ -424,10 +431,10 @@ public abstract class Player extends GameObject {
                 moveAmountX -= walkSpeed;
             }
 
-            //if shoot key is pressed, player shoots a fireball
-            if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
-                playerShooting(this.getY() + 20);
-            }
+//            //if shoot key is pressed, player shoots a fireball
+//            if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
+//                playerShooting(this.getY() + 20);
+//            }
 
             if(Keyboard.isKeyUp(MOVE_LEFT_KEY)){ignoreRight = false;}
             if(Keyboard.isKeyUp(MOVE_RIGHT_KEY)){ignoreLeft = false;}
@@ -528,6 +535,10 @@ public abstract class Player extends GameObject {
                         }
                         levelState = LevelState.PLAYER_DEAD;
                     }
+                }
+                else if(!shootTimer.isTimeUp()){
+                    mapEntity.setY(-10000);
+                    mapEntity.setIsRespawnable(false);
                 }
                 else if(milkedUp){
                     milkedUp = false;
