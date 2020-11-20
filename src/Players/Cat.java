@@ -279,7 +279,7 @@ public class Cat extends Player {
                             .build()
             });
 
-            put("MILKED_DEATH_RIGHT", new Frame[] {
+            put("DEATH_MILKED_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(11, 0), 100)
                             .withScale(3)
                             .build(),
@@ -291,7 +291,7 @@ public class Cat extends Player {
                             .build()
             });
 
-            put("MILKED_DEATH_LEFT", new Frame[] {
+            put("DEATH_MILKED_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(11, 0), 100)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
@@ -301,6 +301,264 @@ public class Cat extends Player {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(11, 2), -1)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build()
+            });
+
+            put("PEPPERED_STAND_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(12, 0), 0)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("PEPPERED_STAND_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(12, 0), 0)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("PEPPERED_WALK_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(13, 0), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(13, 1), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(13, 2), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(13, 3), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("PEPPERED_WALK_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(13, 0), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(13, 1), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(13, 2), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(13, 3), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("PEPPERED_JUMP_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(14, 0), 0)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("PEPPERED_JUMP_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(14, 0), 0)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("PEPPERED_FALL_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(15, 0), 0)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("PEPPERED_FALL_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(15, 0), 0)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("PEPPERED_CROUCH_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(16, 0), 0)
+                            .withScale(3)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("PEPPERED_CROUCH_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(16, 0), 0)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("DEATH_PEPPERED_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(17, 0), 100)
+                            .withScale(3)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(17, 1), 100)
+                            .withScale(3)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(17, 2), -1)
+                            .withScale(3)
+                            .build()
+            });
+
+            put("DEATH_PEPPERED_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(17, 0), 100)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(17, 1), 100)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(17, 2), -1)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build()
+            });
+
+            put("MEPPERED_STAND_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(18, 0), 0)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("MEPPERED_STAND_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(18, 0), 0)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("MEPPERED_WALK_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(19, 0), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(19, 1), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(19, 2), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(19, 3), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("MEPPERED_WALK_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(19, 0), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(19, 1), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(19, 2), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(19, 3), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("MEPPERED_JUMP_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(20, 0), 0)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("MEPPERED_JUMP_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(20, 0), 0)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("MEPPERED_FALL_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(21, 0), 0)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("MEPPERED_FALL_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(21, 0), 0)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("MEPPERED_CROUCH_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(22, 0), 0)
+                            .withScale(3)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("MEPPERED_CROUCH_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(22, 0), 0)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("DEATH_MEPPERED_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(23, 0), 100)
+                            .withScale(3)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(23, 1), 100)
+                            .withScale(3)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(23, 2), -1)
+                            .withScale(3)
+                            .build()
+            });
+
+            put("DEATH_MEPPERED_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(23, 0), 100)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(23, 1), 100)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(23, 2), -1)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()

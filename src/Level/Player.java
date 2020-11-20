@@ -42,8 +42,8 @@ public abstract class Player extends GameObject {
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
     protected boolean underwater;
-    protected boolean spaceState;
     protected boolean milkedUp;
+    protected boolean pepperedUp;
     protected boolean flashingPlayer;
     protected String previousAnimation;
     protected Stopwatch shootTimer = new Stopwatch();
@@ -81,8 +81,8 @@ public abstract class Player extends GameObject {
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
         underwater = false;
-        spaceState = true;
         milkedUp = false;
+        pepperedUp = false;
         flashingPlayer = false;
         previousAnimation = currentAnimationName;
         iFrameTime = 0;
@@ -178,29 +178,32 @@ public abstract class Player extends GameObject {
             case JUMPING:
                 playerJumping();
                 break;
-            case SHOOTING:
-                playerShooting();
-                break;
         }
     }
 
     // player STANDING state logic
     protected void playerStanding() {
         // sets animation to a STAND animation based on which way player is facing
-        if(!milkedUp) {
-            currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        if(milkedUp && pepperedUp){
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MEPPERED_STAND_RIGHT" : "MEPPERED_STAND_LEFT";
+        }
+        else if(milkedUp) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_STAND_RIGHT" : "MILKED_STAND_LEFT";
+        }
+        else if(pepperedUp){
+            currentAnimationName = facingDirection == Direction.RIGHT ? "PEPPERED_STAND_RIGHT" : "PEPPERED_STAND_LEFT";
         }
         else{
-            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_STAND_RIGHT" : "MILKED_STAND_LEFT";
+            currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
         }
 
         // if walk left or walk right key is pressed, player enters WALKING state
-        if ((Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY))&& shootTimer.isTimeUp()) {
+        if ((Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY))) {
             playerState = PlayerState.WALKING;
         }
 
         // if jump key is pressed, player enters JUMPING state
-        else if ((Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY))&& shootTimer.isTimeUp()) {
+        else if ((Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY))) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
@@ -209,8 +212,10 @@ public abstract class Player extends GameObject {
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
-        else if (Keyboard.isKeyDown(SHOOT_KEY)) {
-            playerState = PlayerState.SHOOTING;
+
+        //if shoot key is pressed, player shoots a fireball
+        else if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
+           playerShooting(this.getY() + 20);
         }
 
         if(flashingPlayer) {
@@ -224,11 +229,17 @@ public abstract class Player extends GameObject {
     // player WALKING state logic
     protected void playerWalking() {
         // sets animation to a WALK animation based on which way player is facing
-        if(!milkedUp) {
-            currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+        if(milkedUp && pepperedUp){
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MEPPERED_WALK_RIGHT" : "MEPPERED_WALK_LEFT";
+        }
+        else if(milkedUp) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_WALK_RIGHT" : "MILKED_WALK_LEFT";
+        }
+        else if(pepperedUp){
+            currentAnimationName = facingDirection == Direction.RIGHT ? "PEPPERED_WALK_RIGHT" : "PEPPERED_WALK_LEFT";
         }
         else{
-            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_WALK_RIGHT" : "MILKED_WALK_LEFT";
+            currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
         }
 
         if(underwater){walkSpeed = 1.5f;}
@@ -256,12 +267,14 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
         }
 
-        // if crouch key is pressed,
+        // if crouch key is pressed, player enters CROUCHING state
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
-        else if (Keyboard.isKeyDown(SHOOT_KEY)) {
-            playerState = PlayerState.SHOOTING;
+
+        //if shoot key is pressed, player shoots a fireball
+        else if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
+            playerShooting(this.getY() + 20);
         }
 
         if(flashingPlayer) {
@@ -275,11 +288,17 @@ public abstract class Player extends GameObject {
     // player CROUCHING state logic
     protected void playerCrouching() {
         // sets animation to a CROUCH animation based on which way player is facing
-        if(!milkedUp) {
-            currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
+        if(milkedUp && pepperedUp){
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MEPPERED_CROUCH_RIGHT" : "MEPPERED_CROUCH_LEFT";
+        }
+        else if(milkedUp) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_CROUCH_RIGHT" : "MILKED_CROUCH_LEFT";
+        }
+        else if(pepperedUp){
+            currentAnimationName = facingDirection == Direction.RIGHT ? "PEPPERED_CROUCH_RIGHT" : "PEPPERED_CROUCH_LEFT";
         }
         else{
-            currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_CROUCH_RIGHT" : "MILKED_CROUCH_LEFT";
+            currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
         }
 
         // if crouch key is released, player enters STANDING state
@@ -293,6 +312,11 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
         }
 
+        //if shoot key is pressed, player shoots a fireball
+        else if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
+            playerShooting(this.getY() + 30);
+        }
+
         if(flashingPlayer) {
             if (currentAnimationName != "INVINCIBLE") {
                 previousAnimation = currentAnimationName;
@@ -300,21 +324,18 @@ public abstract class Player extends GameObject {
             }
         }
     }
-    protected void playerShooting() {
-        if(Keyboard.isKeyUp(SHOOT_KEY)) {
-            playerState = PlayerState.STANDING;
-        }
-
+    protected void playerShooting(float fireBallHeight) {
         if(shootTimer.isTimeUp()) {
-            fireball = new Fireball(new Point(this.getX() + 32, this.getY() - 5), 0, 1000);
-
+            if (facingDirection == Direction.RIGHT) {
+                fireball = new Fireball(new Point(this.getX() + 50, fireBallHeight), 2, 1000, map, false);
+            }
+            else{
+                fireball = new Fireball(new Point(this.getX(), fireBallHeight), -2, 1000, map, false);
+            }
             shootTimer.setWaitTime(1000);
             // add fireball enemy to the map for it to offically spawn in the level
             map.addEnemy(fireball);
         }
-
-
-
     }
     // player JUMPING state logic
     protected void playerJumping() {
@@ -326,11 +347,17 @@ public abstract class Player extends GameObject {
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
             // sets animation to a JUMP animation based on which way player is facing
-            if(!milkedUp) {
-                currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+            if(milkedUp && pepperedUp){
+                currentAnimationName = facingDirection == Direction.RIGHT ? "MEPPERED_JUMP_RIGHT" : "MEPPERED_JUMP_LEFT";
+            }
+            else if(milkedUp) {
+                currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_JUMP_RIGHT" : "MILKED_JUMP_LEFT";
+            }
+            else if(pepperedUp){
+                currentAnimationName = facingDirection == Direction.RIGHT ? "PEPPERED_JUMP_RIGHT" : "PEPPERED_JUMP_LEFT";
             }
             else{
-                currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_JUMP_RIGHT" : "MILKED_JUMP_LEFT";
+                currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
             }
 
             // player is set to be in air and then player is sent into the air
@@ -362,19 +389,30 @@ public abstract class Player extends GameObject {
 
             // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
             if (previousY > Math.round(y)) {
-                if(!milkedUp) {
-                    currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-
+                if(milkedUp && pepperedUp){
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "MEPPERED_JUMP_RIGHT" : "MEPPERED_JUMP_LEFT";
                 }
-                else{
+                else if(milkedUp) {
                     currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_JUMP_RIGHT" : "MILKED_JUMP_LEFT";
                 }
-            } else {
-                if(!milkedUp) {
-                    currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
+                else if(pepperedUp){
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "PEPPERED_JUMP_RIGHT" : "PEPPERED_JUMP_LEFT";
                 }
                 else{
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+                }
+            } else {
+                if(milkedUp && pepperedUp){
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "MEPPERED_FALL_RIGHT" : "MEPPERED_FALL_LEFT";
+                }
+                else if(milkedUp) {
                     currentAnimationName = facingDirection == Direction.RIGHT ? "MILKED_FALL_RIGHT" : "MILKED_FALL_LEFT";
+                }
+                else if(pepperedUp){
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "PEPPERED_FALL_RIGHT" : "PEPPERED_FALL_LEFT";
+                }
+                else{
+                    currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
                 }
 
             }
@@ -384,6 +422,11 @@ public abstract class Player extends GameObject {
                 ignoreRight = true;
                 facingDirection = Direction.LEFT;
                 moveAmountX -= walkSpeed;
+            }
+
+            //if shoot key is pressed, player shoots a fireball
+            if (Keyboard.isKeyDown(SHOOT_KEY) && !underwater && pepperedUp) {
+                playerShooting(this.getY() + 20);
             }
 
             if(Keyboard.isKeyUp(MOVE_LEFT_KEY)){ignoreRight = false;}
@@ -479,9 +522,10 @@ public abstract class Player extends GameObject {
             if (mapEntity instanceof Enemy) {
                 if(milkedUp){
                     milkedUp = false;
+                    pepperedUp = false;
                     startIFrames();
                 }
-                if(!shootTimer.isTimeUp()){
+                else if(!shootTimer.isTimeUp()){
                     mapEntity.setY(-10000);
                     mapEntity.setIsRespawnable(false);
                 }
@@ -507,7 +551,18 @@ public abstract class Player extends GameObject {
         GamePanel.pauseTimer();
         // if player is not on ground, player should fall until it touches the ground
         if (airGroundState != AirGroundState.GROUND && map.getCamera().containsDraw(this)) {
-            currentAnimationName = "FALL_RIGHT";
+            if(milkedUp && pepperedUp){
+                currentAnimationName = "MEPPERED_FALL_RIGHT";
+            }
+            else if(milkedUp) {
+                currentAnimationName = "MILKED_FALL_RIGHT";
+            }
+            else if(pepperedUp){
+                currentAnimationName = "PEPPERED_FALL_RIGHT";
+            }
+            else{
+                currentAnimationName = "FALL_RIGHT";
+            }
             applyGravity();
             increaseMomentum();
             super.update();
@@ -515,7 +570,18 @@ public abstract class Player extends GameObject {
         }
         // move player to the right until it walks off screen
         else if (map.getCamera().containsDraw(this)) {
-            currentAnimationName = "WALK_RIGHT";
+            if(milkedUp && pepperedUp){
+                currentAnimationName = "MEPPERED_WALK_RIGHT";
+            }
+            else if(milkedUp) {
+                currentAnimationName = "MILKED_WALK_RIGHT";
+            }
+            else if(pepperedUp){
+                currentAnimationName = "PEPPERED_WALK_RIGHT";
+            }
+            else{
+                currentAnimationName = "WALK_RIGHT";
+            }
             super.update();
             moveXHandleCollision(walkSpeed);
         } else {
@@ -533,10 +599,31 @@ public abstract class Player extends GameObject {
         if (!currentAnimationName.startsWith("DEATH")) {
             new SoundsHandler("dead");
             if (facingDirection == Direction.RIGHT) {
-                currentAnimationName = "DEATH_RIGHT";
+                if(milkedUp && pepperedUp){
+                    currentAnimationName = "DEATH_MEPPERED_RIGHT";
+                }
+                else if(milkedUp) {
+                    currentAnimationName = "DEATH_MILKED_RIGHT";
+                }
+                else if(pepperedUp){
+                    currentAnimationName = "DEATH_PEPPERED_RIGHT";
+                }
+                else{
+                    currentAnimationName = "DEATH_RIGHT";
+                }
             } else {
-                currentAnimationName = "DEATH_LEFT";
-            }
+                if(milkedUp && pepperedUp){
+                    currentAnimationName = "DEATH_MEPPERED_LEFT";
+                }
+                else if(milkedUp) {
+                    currentAnimationName = "DEATH_MILKED_LEFT";
+                }
+                else if(pepperedUp){
+                    currentAnimationName = "DEATH_PEPPERED_LEFT";
+                }
+                else{
+                    currentAnimationName = "DEATH_LEFT";
+                }            }
             super.update();
         }
         // if death animation not on last frame yet, continue to play out death animation
@@ -589,6 +676,8 @@ public abstract class Player extends GameObject {
     }
 
     public void setMilkedUp(boolean setState){ milkedUp = setState;}
+
+    public void setPepperedUp(boolean setState){ pepperedUp = setState;}
 
     // starts the player's invincibility frames
     public void startIFrames(){

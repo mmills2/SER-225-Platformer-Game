@@ -11,7 +11,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
-
+import Level.Map;
 import java.util.HashMap;
 
 // This class is for the green dinosaur enemy that shoots fireballs
@@ -28,6 +28,7 @@ public class DinosaurEnemy extends Enemy {
     private Direction startFacingDirection;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
+    protected Map map;
 
     // timer is used to determine when a fireball is to be shot out
     protected Stopwatch shootTimer = new Stopwatch();
@@ -36,11 +37,12 @@ public class DinosaurEnemy extends Enemy {
     protected DinosaurState dinosaurState;
     protected DinosaurState previousDinosaurState;
 
-    public DinosaurEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
+    public DinosaurEnemy(Point startLocation, Point endLocation, Direction facingDirection, Map map) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("DinosaurEnemy.png"), 14, 17), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
+        this.map = map;
         this.initialize();
     }
 
@@ -120,7 +122,7 @@ public class DinosaurEnemy extends Enemy {
                 int fireballY = Math.round(getY()) + 4;
 
                 // create Fireball enemy
-                Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 1000);
+                Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 1000, map, true);
 
                 // add fireball enemy to the map for it to offically spawn in the level
                 map.addEnemy(fireball);

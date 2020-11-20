@@ -34,10 +34,10 @@ public class Level5 extends Map {
     // TODO Auto-generated constructor stub
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-        enemies.add(new DinosaurEnemy(getPositionByTileIndex(11, 2).addY(2), getPositionByTileIndex(16, 2).addY(2), Direction.RIGHT));
-        enemies.add(new DinosaurEnemy(getPositionByTileIndex(20, 4).addY(2), getPositionByTileIndex(26, 4).addY(2), Direction.RIGHT));
-        enemies.add(new DinosaurEnemy(getPositionByTileIndex(33, 2).addY(2), getPositionByTileIndex(37, 2).addY(2), Direction.RIGHT));
-        enemies.add(new DinosaurEnemy(getPositionByTileIndex(40, 4).addY(2), getPositionByTileIndex(45, 4).addY(2), Direction.RIGHT));
+        enemies.add(new DinosaurEnemy(getPositionByTileIndex(11, 2).addY(2), getPositionByTileIndex(16, 2).addY(2), Direction.RIGHT, this));
+        enemies.add(new DinosaurEnemy(getPositionByTileIndex(20, 4).addY(2), getPositionByTileIndex(26, 4).addY(2), Direction.RIGHT, this));
+        enemies.add(new DinosaurEnemy(getPositionByTileIndex(33, 2).addY(2), getPositionByTileIndex(37, 2).addY(2), Direction.RIGHT, this));
+        enemies.add(new DinosaurEnemy(getPositionByTileIndex(40, 4).addY(2), getPositionByTileIndex(45, 4).addY(2), Direction.RIGHT, this));
 
         enemies.add(new FishEnemy(getPositionByTileIndex(6, 14), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(12, 15), Direction.LEFT));

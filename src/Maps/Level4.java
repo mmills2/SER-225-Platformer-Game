@@ -33,7 +33,6 @@ public class Level4 extends Map{
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(new BugEnemy(getPositionByTileIndex(4, 11), Direction.LEFT));
-        //enemies.add(new DinosaurEnemy(getPositionByTileIndex(23, 5).addY(2), getPositionByTileIndex(25, 5).addY(2), Direction.RIGHT));
         return enemies;
     }
 

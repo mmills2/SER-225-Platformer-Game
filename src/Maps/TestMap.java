@@ -7,6 +7,8 @@ import EnhancedMapTiles.*;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
+import PowerUps.Fish;
+import PowerUps.Pepper;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import Utils.Point;
@@ -25,7 +27,7 @@ public class TestMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(new BugEnemy(getPositionByTileIndex(15, 9), Direction.LEFT));
-        enemies.add(new DinosaurEnemy(getPositionByTileIndex(19, 1).addY(2), getPositionByTileIndex(22, 1).addY(2), Direction.RIGHT));
+        enemies.add(new DinosaurEnemy(getPositionByTileIndex(19, 1).addY(2), getPositionByTileIndex(22, 1).addY(2), Direction.RIGHT, this));
         return enemies;
     }
 
@@ -75,6 +77,8 @@ public class TestMap extends Map {
         ArrayList<PowerUp> powerUps = new ArrayList<>();
 
         powerUps.add(new Milk(getPositionByTileIndex(18, 9)));
+        powerUps.add(new Fish(getPositionByTileIndex(17, 9)));
+        powerUps.add((new Pepper(getPositionByTileIndex(19, 9))));
 
         return powerUps;
     }

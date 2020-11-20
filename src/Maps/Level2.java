@@ -131,9 +131,9 @@ public class Level2 extends Map {
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(new BugEnemy(getPositionByTileIndex(62, 23), Direction.LEFT));
         enemies.add(new BugEnemy(getPositionByTileIndex(67, 23), Direction.LEFT));
-        enemies.add(new DinosaurEnemy(getPositionByTileIndex(13, 18).addY(2), getPositionByTileIndex(18, 18).addY(2), Direction.RIGHT));
-        enemies.add(new DinosaurEnemy(getPositionByTileIndex(79, 7).addY(2), getPositionByTileIndex(81, 7).addY(2), Direction.RIGHT));
-        enemies.add(new DinosaurEnemy(getPositionByTileIndex(82, 5).addY(2), getPositionByTileIndex(85, 5).addY(2), Direction.RIGHT));
+        enemies.add(new DinosaurEnemy(getPositionByTileIndex(13, 18).addY(2), getPositionByTileIndex(18, 18).addY(2), Direction.RIGHT, this));
+        enemies.add(new DinosaurEnemy(getPositionByTileIndex(79, 7).addY(2), getPositionByTileIndex(81, 7).addY(2), Direction.RIGHT, this));
+        enemies.add(new DinosaurEnemy(getPositionByTileIndex(82, 5).addY(2), getPositionByTileIndex(85, 5).addY(2), Direction.RIGHT, this));
         enemies.add(new FishEnemy(getPositionByTileIndex(24, 21), Direction.LEFT));
         enemies.add(new FishEnemy(getPositionByTileIndex(46, 21), Direction.RIGHT));
         enemies.add(new FishEnemy(getPositionByTileIndex(55, 18), Direction.LEFT));

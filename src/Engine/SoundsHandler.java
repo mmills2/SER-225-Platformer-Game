@@ -1,6 +1,5 @@
 package Engine;
 
-import java.awt.*;
 import java.io.*;
 import javax.sound.sampled.*;
 
@@ -13,15 +12,12 @@ public class SoundsHandler {
     public SoundsHandler(String string) {
         if (string.equals("death")) {
             fileName = "src/died.wav";
-            //initialize();
         }
         if (string.equals("jump")) {
             fileName = "src/Jump.wav";
-            //initialize();
         }
         if (string.equals("theme")) {
             fileName = "src/Theme.wav";
-            //initialize();
         }
     }
 

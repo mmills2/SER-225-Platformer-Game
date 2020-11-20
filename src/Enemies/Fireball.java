@@ -10,7 +10,7 @@ import Level.Player;
 import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
-
+import Level.Map;
 import java.util.HashMap;
 
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
@@ -19,8 +19,10 @@ import java.util.HashMap;
 public class Fireball extends Enemy {
     private float movementSpeed;
     private Stopwatch existenceTimer = new Stopwatch();
+    private Map map;
+    private boolean enemyFireball;
 
-    public Fireball(Point location, float movementSpeed, int existenceTime) {
+    public Fireball(Point location, float movementSpeed, int existenceTime, Map map, boolean enemyFireball) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
@@ -29,6 +31,9 @@ public class Fireball extends Enemy {
 
         // this enemy will not respawn after it has been removed
         isRespawnable = false;
+
+        this.map = map;
+        this.enemyFireball = enemyFireball;
 
         initialize();
     }
@@ -43,6 +48,16 @@ public class Fireball extends Enemy {
             // move fireball forward
             moveXHandleCollision(movementSpeed);
             super.update(player);
+            if(!enemyFireball){
+                for (Enemy enemy: map.getActiveEnemies()) {
+                    if(enemy != this) {
+                        if (intersects(enemy)) {
+                            enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+                            this.mapEntityStatus = MapEntityStatus.REMOVED;
+                        }
+                    }
+                }
+            }
         }
     }
 
