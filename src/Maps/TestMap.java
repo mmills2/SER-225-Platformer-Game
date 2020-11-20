@@ -78,7 +78,7 @@ public class TestMap extends Map {
 
         powerUps.add(new Milk(getPositionByTileIndex(18, 9)));
         powerUps.add(new Fish(getPositionByTileIndex(17, 9)));
-        powerUps.add((new Pepper(getPositionByTileIndex(19, 9))));
+        powerUps.add(new Pepper(getPositionByTileIndex(19, 9)));
 
         return powerUps;
     }

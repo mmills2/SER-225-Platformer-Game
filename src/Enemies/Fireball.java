@@ -87,4 +87,6 @@ public class Fireball extends Enemy {
             });
         }};
     }
+
+    public boolean getEnemyFireball(){ return enemyFireball; }
 }

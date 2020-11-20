@@ -520,21 +520,25 @@ public abstract class Player extends GameObject {
         if (!isInvincible) {
             // if map entity is an enemy, kill player on touch
             if (mapEntity instanceof Enemy) {
-                if(milkedUp){
+                if(mapEntity instanceof Fireball){
+                    if(((Fireball) mapEntity).getEnemyFireball() && !milkedUp){
+                        if(!deathPlayedOnce) {
+                            deathSound.startSound(0);
+                            deathPlayedOnce = true;
+                        }
+                        levelState = LevelState.PLAYER_DEAD;
+                    }
+                }
+                else if(milkedUp){
                     milkedUp = false;
                     pepperedUp = false;
                     startIFrames();
-                }
-                else if(!shootTimer.isTimeUp()){
-                    mapEntity.setY(-10000);
-                    mapEntity.setIsRespawnable(false);
                 }
                 else{
                     if(!deathPlayedOnce) {
                         deathSound.startSound(0);
                         deathPlayedOnce = true;
                     }
-
                     levelState = LevelState.PLAYER_DEAD;
                 }
             }
